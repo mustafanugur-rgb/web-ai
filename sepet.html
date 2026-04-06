@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Alışveriş sepetiniz — Cafe ve restoran yazılımı ve ekipmanı. Dinamik POS E-ticaret.">
+  <meta name="robots" content="noindex,follow">
+  <title>Sepet | Dinamik POS E-ticaret</title>
+  <link rel="canonical" href="http://wwww.dinamikpos.com.tr.tr/sepet.html">
+  
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/theme-toggle.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/cart.css">
+  <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('dinamik_theme')||'light');</script>
+  <script>document.documentElement.setAttribute('lang',localStorage.getItem('dinamik_lang')||'tr');</script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link" data-i18n="skip_link">İçeriğe atla</a>
+
+  <header class="header" role="banner">
+    <nav class="nav" aria-label="Ana menü">
+      <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Dinamik POS" class="nav-logo-img" width="180" height="45" loading="lazy" decoding="async"></a>
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Menüyü aç/kapat">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <ul class="nav-links">
+          <li><a href="index.html" data-i18n="nav_home">Ana Sayfa</a></li>
+          <li><a href="urunler.html" data-i18n="nav_products">Ürünler</a></li>
+          <li><a href="sepet.html" class="active" data-i18n="nav_cart">Sepet</a></li>
+        </ul>
+        <div class="nav-cta">
+          <div id="lang-selector"></div>
+          <div class="theme-toggle" role="group" aria-label="Tema seçimi">
+            <button type="button" data-theme-toggle="dark" aria-pressed="true" title="Koyu tema"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+            <button type="button" data-theme-toggle="light" aria-pressed="false" title="Açık tema"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
+          </div>
+          <a href="urunler.html" class="btn btn-primary" data-i18n="continue_shopping">Alışverişe Devam</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="cart-main">
+    <div class="cart-inner">
+      <h1 data-i18n="cart_title">Alışveriş Sepeti</h1>
+
+      <div id="cart-empty" class="cart-empty" style="display:none;">
+        <div class="cart-empty-icon">🛒</div>
+        <p data-i18n="cart_empty">Sepetiniz boş</p>
+        <a href="urunler.html" class="btn btn-primary" data-i18n="browse_products">Ürünlere Göz At</a>
+      </div>
+
+      <div id="cart-content" class="cart-content">
+        <div class="cart-items" id="cart-items">
+          <!-- JS ile doldurulacak -->
+        </div>
+        <aside class="cart-summary card">
+          <h2 data-i18n="order_summary">Sipariş Özeti</h2>
+          <div class="cart-summary-row">
+            <span data-i18n="subtotal">Ara Toplam</span>
+            <span id="cart-subtotal">₺0</span>
+          </div>
+          <div class="cart-summary-row">
+            <span data-i18n="vat">KDV (%18)</span>
+            <span id="cart-kdv">₺0</span>
+          </div>
+          <div class="cart-summary-row cart-total">
+            <span data-i18n="total">Toplam</span>
+            <span id="cart-total">₺0</span>
+          </div>
+          <a href="checkout.html?type=cart" class="btn btn-primary btn-lg btn-block" id="checkout-btn" data-i18n="checkout_btn">Ödemeye Geç</a>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/config.js" defer></script>
+  <script src="js/translations.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/theme.js" defer></script>
+  <script src="js/nav-mobile.js" defer></script>
+  <script src="js/cart.js" defer></script>
+</body>
+</html>

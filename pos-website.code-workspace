@@ -1,0 +1,13 @@
+{
+  "folders": [
+    {
+      "name": "Site (HTML / JS / Node)",
+      "path": "."
+    },
+    {
+      "name": "API (PHP)",
+      "path": "api-php"
+    }
+  ],
+  "settings": {}
+}

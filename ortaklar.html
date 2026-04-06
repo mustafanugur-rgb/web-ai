@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex,follow">
+  <title>Çözüm Ortakları / Referanslar | Dinamik POS Yönetim</title>
+  <link rel="canonical" href="http://wwww.dinamikpos.com.tr.tr/ortaklar.html">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/theme-toggle.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('dinamik_theme')||'light');</script>
+  <script>document.documentElement.setAttribute('lang',localStorage.getItem('dinamik_lang')||'tr');</script>
+  <script src="js/admin-auth.js" defer></script>
+</head>
+<body class="admin-body">
+  <a href="#main-content" class="skip-link">İçeriğe atla</a>
+  <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-expanded="false" aria-label="Menüyü aç/kapat">
+    <span class="sidebar-toggle-bar"></span>
+    <span class="sidebar-toggle-bar"></span>
+    <span class="sidebar-toggle-bar"></span>
+  </button>
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Ana menü">
+    <div class="sidebar-header">
+      <a href="index.html" class="sidebar-logo"><img src="images/logo.png" alt="Dinamik POS" class="sidebar-logo-img" width="180" height="45" loading="lazy" decoding="async"></a>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="admin.html" class="sidebar-link">
+        <span class="sidebar-icon">📊</span>
+        Dashboard
+      </a>
+      <a href="site-rehberi.html" class="sidebar-link">
+        <span class="sidebar-icon">🗺️</span>
+        Site rehberi
+      </a>
+      <a href="raporlar.html" class="sidebar-link">
+        <span class="sidebar-icon">📈</span>
+        Raporlar
+      </a>
+      <a href="crm.html" class="sidebar-link">
+        <span class="sidebar-icon">👥</span>
+        CRM
+      </a>
+      <a href="urunler-yonetim.html" class="sidebar-link">
+        <span class="sidebar-icon">📦</span>
+        Ürünler
+      </a>
+      <a href="siparisler.html" class="sidebar-link">
+        <span class="sidebar-icon">📋</span>
+        Siparişler
+      </a>
+      <a href="kampanyalar.html" class="sidebar-link">
+        <span class="sidebar-icon">📢</span>
+        Kampanyalar
+      </a>
+      <a href="ayarlar.html" class="sidebar-link">
+        <span class="sidebar-icon">⚙️</span>
+        Ayarlar
+      </a>
+      <a href="ortaklar.html" class="sidebar-link active" aria-current="page">
+        <span class="sidebar-icon">🤝</span>
+        Çözüm Ortakları
+      </a>
+      <a href="kullanicilar.html" class="sidebar-link">
+        <span class="sidebar-icon">👤</span>
+        Kullanıcılar
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="theme-toggle sidebar-theme-toggle" role="group" aria-label="Tema seçimi">
+        <button type="button" data-theme-toggle="dark" aria-pressed="true" title="Koyu tema"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+        <button type="button" data-theme-toggle="light" aria-pressed="false" title="Açık tema"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
+      </div>
+      <a href="index.html" class="sidebar-link">← Siteye Dön</a>
+      <button type="button" class="sidebar-link" id="admin-logout-btn" style="background:none;border:none;cursor:pointer;width:100%;text-align:left;font:inherit;color:inherit;">Çıkış</button>
+    </div>
+  </aside>
+
+  <div class="admin-main">
+    <header class="admin-header">
+      <h1 class="admin-title">Çözüm Ortakları / Referanslar</h1>
+      <div class="admin-header-actions">
+        <div id="lang-selector"></div>
+        <span class="admin-user"></span>
+      </div>
+    </header>
+
+    <main id="main-content" class="admin-content">
+      <!-- Çözüm Ortakları (ana sayfada sol panel) -->
+      <section class="widget-section">
+        <div class="card ortaklar-card-cozum">
+          <h2 class="section-title">Çözüm Ortakları</h2>
+          <p class="stat-meta" style="margin-bottom: var(--space-4);">Ana sayfada sol yan panelde gösterilir.</p>
+          <ul id="ortaklar-list-cozum" class="ortaklar-list">
+            <!-- JS ile doldurulur -->
+          </ul>
+          <h3 class="section-subtitle" style="margin-top: var(--space-6); margin-bottom: var(--space-3);">Yeni çözüm ortağı ekle</h3>
+          <form id="ortak-ekle-form-cozum" class="ortak-form">
+            <div class="form-group">
+              <label for="ortak-name-cozum">Ad / Firma adı *</label>
+              <input type="text" id="ortak-name-cozum" class="input" required placeholder="Örn: SambaPOS">
+            </div>
+            <div class="form-group">
+              <label for="ortak-logo-cozum">Logo (URL veya dosya) *</label>
+              <input type="text" id="ortak-logo-cozum" class="input" required placeholder="URL girin veya aşağıdan dosya yükleyin">
+              <input type="file" id="ortak-logo-file-cozum" class="input" accept="image/png,image/jpeg,image/jpg,image/gif,image/webp,image/svg+xml" aria-label="Logo dosyası seç">
+              <span id="ortak-logo-upload-status-cozum" class="stat-meta" style="display:none;"></span>
+            </div>
+            <div class="form-group">
+              <label for="ortak-url-cozum">Web adresi (link)</label>
+              <input type="url" id="ortak-url-cozum" class="input" placeholder="https://... (boş bırakılabilir)">
+            </div>
+            <button type="submit" class="btn btn-primary">Çözüm ortağı ekle</button>
+            <button type="button" id="ortak-iptal-cozum" class="btn btn-secondary" style="display:none;margin-left:var(--space-2);">İptal</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Referanslar (ana sayfada sağ panel) -->
+      <section class="widget-section">
+        <div class="card ortaklar-card-referans">
+          <h2 class="section-title">Referanslar</h2>
+          <p class="stat-meta" style="margin-bottom: var(--space-4);">Ana sayfada sağ yan panelde gösterilir.</p>
+          <ul id="ortaklar-list-referans" class="ortaklar-list">
+            <!-- JS ile doldurulur -->
+          </ul>
+          <h3 class="section-subtitle" style="margin-top: var(--space-6); margin-bottom: var(--space-3);">Yeni referans ekle</h3>
+          <form id="ortak-ekle-form-referans" class="ortak-form">
+            <div class="form-group">
+              <label for="ortak-name-referans">Ad / Firma adı *</label>
+              <input type="text" id="ortak-name-referans" class="input" required placeholder="Örn: Referans firma adı">
+            </div>
+            <div class="form-group">
+              <label for="ortak-logo-referans">Logo (URL veya dosya) *</label>
+              <input type="text" id="ortak-logo-referans" class="input" required placeholder="URL girin veya aşağıdan dosya yükleyin">
+              <input type="file" id="ortak-logo-file-referans" class="input" accept="image/png,image/jpeg,image/jpg,image/gif,image/webp,image/svg+xml" aria-label="Logo dosyası seç">
+              <span id="ortak-logo-upload-status-referans" class="stat-meta" style="display:none;"></span>
+            </div>
+            <div class="form-group">
+              <label for="ortak-url-referans">Web adresi (link)</label>
+              <input type="url" id="ortak-url-referans" class="input" placeholder="https://... (boş bırakılabilir)">
+            </div>
+            <button type="submit" class="btn btn-primary">Referans ekle</button>
+            <button type="button" id="ortak-iptal-referans" class="btn btn-secondary" style="display:none;margin-left:var(--space-2);">İptal</button>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/config.js" defer></script>
+  <script src="js/translations.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/theme.js" defer></script>
+  <script src="js/admin-sidebar.js" defer></script>
+  <script src="js/admin-notifications.js" defer></script>
+  <script src="js/ortaklar.js" defer></script>
+  <script src="js/ortaklar-admin.js" defer></script>
+</body>
+</html>

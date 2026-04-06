@@ -1,0 +1,200 @@
+/**
+ * SEO landing sayfalari
+ */
+
+.landing-main {
+  padding: calc(var(--space-8) + var(--nav-mobile-offset)) max(var(--space-6), env(safe-area-inset-right, 0px)) var(--space-8) max(var(--space-6), env(safe-area-inset-left, 0px));
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+.landing-hero {
+  margin-bottom: var(--space-10);
+  padding: var(--space-8);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  background:
+    radial-gradient(circle at top right, rgba(44, 137, 200, 0.2), transparent 45%),
+    linear-gradient(160deg, rgba(44, 137, 200, 0.08), transparent 45%);
+}
+
+.landing-badge {
+  display: inline-flex;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  background: var(--color-accent-muted);
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  margin-bottom: var(--space-4);
+}
+
+.landing-title {
+  font-size: clamp(1.7rem, 4vw, 2.6rem);
+  line-height: 1.15;
+  margin-bottom: var(--space-4);
+  letter-spacing: -0.02em;
+}
+
+.landing-lead {
+  color: var(--color-text-secondary);
+  font-size: var(--text-lg);
+  max-width: 900px;
+}
+
+/* Konu sayfaları: metin + renkli illüstrasyon */
+.landing-hero--split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(200px, 380px);
+  gap: var(--space-8);
+  align-items: center;
+}
+
+.landing-hero-copy .landing-badge,
+.landing-hero-copy .landing-title,
+.landing-hero-copy .landing-lead {
+  max-width: none;
+}
+
+.landing-hero-copy .landing-lead {
+  max-width: 52ch;
+}
+
+.landing-hero-copy .landing-title {
+  margin-top: 0;
+}
+
+.landing-hero-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.landing-hero-art img {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+  max-height: 240px;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+  filter: drop-shadow(0 12px 28px var(--color-accent-glow));
+}
+
+.landing-hero--split .landing-kpi {
+  grid-column: 1 / -1;
+  margin-top: var(--space-6);
+}
+
+.landing-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: var(--space-6);
+  margin-bottom: var(--space-10);
+}
+
+.landing-grid .card {
+  box-shadow: var(--shadow-md);
+}
+
+.landing-list {
+  list-style: none;
+  margin-top: var(--space-4);
+}
+
+.landing-list li {
+  padding: var(--space-2) 0;
+  color: var(--color-text-secondary);
+  border-bottom: 1px dashed var(--color-border);
+}
+
+.landing-list li::before {
+  content: "✓ ";
+  color: var(--color-accent);
+  font-weight: var(--font-bold);
+}
+
+.landing-kpi {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+
+.landing-kpi .card {
+  text-align: center;
+  padding: var(--space-4);
+  background: var(--color-bg-elevated);
+}
+
+.landing-kpi-value {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--color-accent);
+}
+
+.landing-kpi-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.faq-list {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.faq-item summary {
+  cursor: pointer;
+  font-weight: var(--font-semibold);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-tertiary);
+}
+
+.faq-item p {
+  margin-top: var(--space-2);
+  padding: 0 var(--space-2) var(--space-2) var(--space-2);
+  color: var(--color-text-secondary);
+}
+
+.related-links {
+  margin-top: var(--space-10);
+}
+
+.related-links .card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .landing-main {
+    padding: calc(var(--space-6) + var(--nav-mobile-offset)) max(var(--space-4), env(safe-area-inset-right, 0px)) var(--space-6) max(var(--space-4), env(safe-area-inset-left, 0px));
+  }
+  .landing-hero {
+    padding: var(--space-5);
+    border-radius: var(--radius-lg);
+  }
+  .landing-hero--split {
+    grid-template-columns: 1fr;
+  }
+  .landing-hero-art {
+    order: -1;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .landing-hero-art img {
+    max-height: 200px;
+  }
+  .landing-grid {
+    grid-template-columns: 1fr;
+  }
+  .landing-kpi {
+    grid-template-columns: 1fr;
+  }
+  .landing-lead {
+    font-size: var(--text-base);
+  }
+}

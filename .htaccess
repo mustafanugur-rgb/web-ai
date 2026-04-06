@@ -1,0 +1,11 @@
+DirectoryIndex index.html
+
+# api/ altındaki .htaccess çalışmıyorsa (404) bu kurallar /api/dinamik-sales/chat yolunu chat.php'ye bağlar.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+# Kısa URL'ler (dosya adı .html olmadan)
+RewriteRule ^admin/?$ admin.html [L]
+RewriteRule ^admin-login/?$ admin-login.html [L]
+RewriteRule ^api/dinamik-sales/chat$ api/dinamik-sales/chat.php [L]
+RewriteRule ^api/dinamik-sales/lead$ api/dinamik-sales/lead.php [L]
+</IfModule>

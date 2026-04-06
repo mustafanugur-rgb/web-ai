@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex,follow">
+  <meta name="description" content="Dinamik POS yönetim paneli girişi (arama motorlarında listelenmez).">
+  <title>Yönetim Paneli Girişi | Dinamik POS</title>
+  <link rel="canonical" href="https://www.dinamikpos.com.tr/admin-login">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('dinamik_theme')||'light');</script>
+  <script>document.documentElement.setAttribute('lang',localStorage.getItem('dinamik_lang')||'tr');</script>
+  <style>
+    .login-page { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; gap: 2rem; }
+    .login-card { max-width: 400px; width: 100%; }
+    .login-logo { text-align: center; margin-bottom: var(--space-8); }
+    .login-logo img { height: 56px; }
+    .login-error { color: var(--color-error); font-size: var(--text-sm); margin-top: var(--space-2); display: none; }
+    .login-lang { position: absolute; top: var(--space-4); right: var(--space-4); }
+    .login-partners { margin-top: var(--space-8); padding-top: var(--space-6); border-top: 1px solid var(--color-border); width: 100%; max-width: 500px; text-align: center; }
+    .login-partners-title { font-size: var(--text-sm); font-weight: 600; color: var(--color-text-muted); margin-bottom: var(--space-4); }
+    .login-partners-list { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-4); align-items: center; }
+    .login-partners-item { display: flex; align-items: center; justify-content: center; width: 72px; height: 48px; padding: var(--space-2); background: var(--color-bg-tertiary); border-radius: var(--radius-md); border: 1px solid var(--color-border); transition: border-color 0.2s; }
+    .login-partners-item:hover { border-color: var(--color-accent); }
+    .login-partners-item img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .login-partners-item span { font-size: 0.7rem; color: var(--color-text-muted); }
+  </style>
+</head>
+<body>
+  <div class="login-lang" id="lang-selector"></div>
+  <div class="login-page">
+    <div class="login-card card">
+      <div class="login-logo">
+        <a href="index.html"><img src="images/logo.png" alt="Dinamik POS" width="180" height="45" loading="lazy" decoding="async"></a>
+      </div>
+      <h1 style="text-align:center; margin-bottom: var(--space-4);" data-i18n="admin_login_title">Yönetim Paneli Girişi</h1>
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label for="login-email" data-i18n="admin_login_email_label">E-posta (opsiyonel)</label>
+          <input type="text" id="login-email" class="input" inputmode="email" autocomplete="username" autocapitalize="none" spellcheck="false" data-i18n-placeholder="admin_login_email_placeholder" placeholder="Kullanıcı e-postası — boş bırakırsanız admin girişi">
+          <p class="stat-meta" style="margin-top: var(--space-2); font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.4;">
+            <strong>Admin olarak girmek için:</strong> e-posta alanını <em>tamamen boş</em> bırakın, yalnızca yönetici şifresini yazın. (Panel kullanıcısıysanız e-posta + şifrenizi girin.)
+          </p>
+        </div>
+        <div class="form-group">
+          <label for="login-password" data-i18n="admin_login_password_label">Şifre</label>
+          <input type="password" id="login-password" class="input" data-i18n-placeholder="admin_login_password_placeholder" placeholder="Admin veya kullanıcı şifresi" required autocomplete="current-password">
+        </div>
+        <div class="form-group" style="display:flex; align-items:center; gap: 0.5rem;">
+          <input type="checkbox" id="login-remember" class="input" style="width: auto;">
+          <label for="login-remember" style="margin:0;" data-i18n="admin_login_remember">Beni hatırla (sayfa yenilese de giriş kalsın)</label>
+        </div>
+        <p class="login-error" id="login-error" data-i18n="admin_login_error_msg">E-posta veya şifre hatalı. Lütfen tekrar deneyin.</p>
+        <button type="submit" class="btn btn-primary btn-block" data-i18n="admin_login_btn">Giriş Yap</button>
+      </form>
+      <p class="stat-meta" style="text-align:center; margin-top: var(--space-4); max-width: 22rem; margin-left: auto; margin-right: auto;">
+        Canlı ortamda varsayılan admin şifresini ve panelde kayıtlı PayTR bilgilerini mutlaka değiştirin.
+      </p>
+      <p style="text-align:center; margin-top: var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted);">
+        <a href="index.html" data-i18n="admin_login_back">← Siteye Dön</a>
+        <span style="margin: 0 0.5rem;">|</span>
+        <a href="giris.html" data-i18n="admin_login_customer_link">Müşteri girişi (Hesabım)</a>
+      </p>
+    </div>
+    <div class="login-partners" id="login-partners"></div>
+  </div>
+  <script src="js/config.js" defer></script>
+  <script src="js/translations.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/ortaklar.js" defer></script>
+  <script>
+    (function(){ if (window.DinamikOrtaklar && window.DinamikOrtaklar.renderLoginPartners) window.DinamikOrtaklar.renderLoginPartners('login-partners'); })();
+  </script>
+  <script src="js/admin-auth.js" defer></script>
+  <script>
+    (function(){
+      var container = document.getElementById('lang-selector');
+      if (container && typeof I18N !== 'undefined' && I18N.renderLangSelector) I18N.renderLangSelector(container);
+    })();
+  </script>
+</body>
+</html>

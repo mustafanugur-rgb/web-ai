@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Kampanya yönetimi - Dinamik POS Yönetim Paneli">
+  <meta name="robots" content="noindex,follow">
+  <title>Kampanyalar | Dinamik POS Yönetim</title>
+  <link rel="canonical" href="http://wwww.dinamikpos.com.tr.tr/kampanyalar.html">
+  
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/theme-toggle.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/products-admin.css">
+  <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('dinamik_theme')||'light');</script>
+  <script>document.documentElement.setAttribute('lang',localStorage.getItem('dinamik_lang')||'tr');</script>
+  <script src="js/admin-auth.js" defer></script>
+</head>
+<body class="admin-body">
+  <a href="#main-content" class="skip-link">İçeriğe atla</a>
+
+  <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-expanded="false" aria-label="Menüyü aç/kapat">
+    <span class="sidebar-toggle-bar"></span>
+    <span class="sidebar-toggle-bar"></span>
+    <span class="sidebar-toggle-bar"></span>
+  </button>
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Ana menü">
+    <div class="sidebar-header">
+      <a href="index.html" class="sidebar-logo"><img src="images/logo.png" alt="Dinamik POS" class="sidebar-logo-img" width="180" height="45" loading="lazy" decoding="async"></a>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="admin.html" class="sidebar-link">
+        <span class="sidebar-icon">📊</span>
+        Dashboard
+      </a>
+      <a href="site-rehberi.html" class="sidebar-link">
+        <span class="sidebar-icon">🗺️</span>
+        Site rehberi
+      </a>
+      <a href="raporlar.html" class="sidebar-link">
+        <span class="sidebar-icon">📈</span>
+        Raporlar
+      </a>
+      <a href="crm.html" class="sidebar-link">
+        <span class="sidebar-icon">👥</span>
+        CRM
+      </a>
+      <a href="urunler-yonetim.html" class="sidebar-link">
+        <span class="sidebar-icon">📦</span>
+        Ürünler
+      </a>
+      <a href="siparisler.html" class="sidebar-link">
+        <span class="sidebar-icon">📋</span>
+        Siparişler
+      </a>
+      <a href="kampanyalar.html" class="sidebar-link active" aria-current="page">
+        <span class="sidebar-icon">📢</span>
+        Kampanyalar
+      </a>
+      <a href="ayarlar.html" class="sidebar-link">
+        <span class="sidebar-icon">⚙️</span>
+        Ayarlar
+      </a>
+      <a href="ortaklar.html" class="sidebar-link">
+        <span class="sidebar-icon">🤝</span>
+        Çözüm Ortakları
+      </a>
+      <a href="kullanicilar.html" class="sidebar-link">
+        <span class="sidebar-icon">👤</span>
+        Kullanıcılar
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="theme-toggle sidebar-theme-toggle" role="group" aria-label="Tema seçimi">
+        <button type="button" data-theme-toggle="dark" aria-pressed="true" title="Koyu tema"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+        <button type="button" data-theme-toggle="light" aria-pressed="false" title="Açık tema"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
+      </div>
+      <a href="index.html" class="sidebar-link" data-i18n="admin_back">← Siteye Dön</a>
+      <button type="button" class="sidebar-link" id="admin-logout-btn" data-i18n="admin_logout" style="background:none;border:none;cursor:pointer;width:100%;text-align:left;font:inherit;color:inherit;">Çıkış</button>
+    </div>
+  </aside>
+
+  <div class="admin-main">
+    <header class="admin-header">
+      <h1 class="admin-title">Kampanyalar</h1>
+      <div class="admin-header-actions">
+        <div id="lang-selector"></div>
+        <span class="admin-user"></span>
+        <button type="button" class="btn btn-primary btn-sm" id="btn-add-campaign">+ Yeni Kampanya</button>
+      </div>
+    </header>
+
+    <main id="main-content" class="admin-content">
+      <section class="widget-section">
+        <div class="campaign-grid" id="campaigns-grid">
+          <!-- JS ile doldurulacak -->
+        </div>
+        <div id="campaigns-empty" class="table-empty" style="display:none;">
+          <div class="table-empty-icon">📢</div>
+          <p>Henüz kampanya yok.</p>
+          <button type="button" class="btn btn-primary" id="btn-add-campaign-empty">+ İlk Kampanyayı Oluştur</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-overlay" id="campaign-modal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-labelledby="campaign-modal-title" aria-modal="true">
+      <div class="modal-header">
+        <h2 id="campaign-modal-title">Yeni Kampanya</h2>
+        <button type="button" class="modal-close" id="campaign-modal-close" aria-label="Kapat">&times;</button>
+      </div>
+      <form id="campaign-form" class="modal-body">
+        <input type="hidden" id="campaign-id" name="id">
+        <div class="form-group">
+          <label for="campaign-name">Kampanya adı *</label>
+          <input type="text" id="campaign-name" name="name" class="input" required maxlength="120" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="campaign-status">Durum</label>
+          <select id="campaign-status" name="status" class="input">
+            <option value="active">Aktif</option>
+            <option value="new">Yeni</option>
+            <option value="passive">Pasif</option>
+          </select>
+        </div>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="campaign-revenue">Gelir (₺)</label>
+            <input type="number" id="campaign-revenue" name="revenue" class="input" min="0" step="1" value="0">
+          </div>
+          <div class="form-group">
+            <label for="campaign-spend">Harcama (₺)</label>
+            <input type="number" id="campaign-spend" name="spend" class="input" min="0" step="1" value="0">
+          </div>
+        </div>
+        <p class="stat-meta" style="margin-top:0;">ROI = Gelir ÷ Harcama (panel takibi için manuel girilir).</p>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="campaign-modal-cancel">İptal</button>
+          <button type="submit" class="btn btn-primary">Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/config.js" defer></script>
+  <script src="js/translations.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/theme.js" defer></script>
+  <script src="js/admin-sidebar.js" defer></script>
+  <script src="js/admin-notifications.js" defer></script>
+  <script src="js/kampanyalar-admin.js" defer></script>
+</body>
+</html>

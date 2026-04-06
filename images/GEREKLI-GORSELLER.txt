@@ -1,0 +1,11 @@
+Bu klasöre aşağıdaki dosyaları ekleyin, sonra FTP ile sunucudaki public_html/images içine yükleyin.
+
+ZORUNLU:
+- logo.png          → Logonuz (önerilen: yaklaşık 180x45 piksel veya oranı koruyun)
+- sambapos-mockup.png → SambaPOS bölümündeki görsel (ana sayfada; isteğe bağlı)
+
+İSTEĞE BAĞLI (daha hızlı yükleme için):
+- logo.webp
+- sambapos-mockup.webp
+
+Logo ve mockup görselini bu klasöre koyduktan sonra images klasörünü sunucuya (public_html/images) yükleyin.

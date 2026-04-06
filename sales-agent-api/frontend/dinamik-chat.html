@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DinamikPOS AI</title>
+
+<style>
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  margin: 0;
+}
+
+/* CHAT BUTTON */
+#chat-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 20px;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+#chat-button:hover {
+  filter: brightness(1.08);
+}
+
+/* CHAT BOX */
+#chat-box {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 340px;
+  max-width: calc(100vw - 40px);
+  height: 500px;
+  max-height: calc(100vh - 120px);
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* HEADER */
+#chat-header {
+  padding: 14px 16px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  font-weight: 600;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+#chat-header-inner {
+  flex: 1;
+}
+
+#chat-close {
+  background: none;
+  border: none;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  color: #666;
+  padding: 0 4px;
+}
+
+#chat-close:hover {
+  color: #000;
+}
+
+/* MESSAGES */
+#chat-messages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  background: #fafafa;
+}
+
+/* MESSAGE BUBBLES */
+.message {
+  margin-bottom: 10px;
+  max-width: 75%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.4;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.message.user {
+  background: #000;
+  color: #fff;
+  margin-left: auto;
+}
+
+.message.bot {
+  background: #eaeaea;
+  color: #000;
+}
+
+.message.error {
+  background: #fee2e2;
+  color: #991b1b;
+  max-width: 100%;
+  font-size: 13px;
+}
+
+/* INPUT */
+#chat-input {
+  display: flex;
+  border-top: 1px solid #eee;
+  background: #fff;
+}
+
+#chat-input input {
+  flex: 1;
+  border: none;
+  padding: 12px;
+  font-size: 14px;
+  outline: none;
+}
+
+#chat-input input:disabled {
+  opacity: 0.6;
+}
+
+#chat-input button {
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#chat-input button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+</style>
+</head>
+
+<body>
+
+<button type="button" id="chat-button">Satış Asistanı</button>
+
+<div id="chat-box">
+  <div id="chat-header">
+    <div id="chat-header-inner">
+      Satış Asistanı<br>
+      <small style="font-weight:400;color:#666;">POS · Yazarkasa · 7/24 Destek</small>
+    </div>
+    <button type="button" id="chat-close" aria-label="Kapat">×</button>
+  </div>
+
+  <div id="chat-messages" role="log" aria-live="polite"></div>
+
+  <div id="chat-input">
+    <input id="message" type="text" placeholder="Mesajınızı yazın…" autocomplete="off" />
+    <button type="button" id="send-btn" onclick="sendMessage()">Gönder</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /** API ile aynı origin’deyse /chat; aksi halde 127.0.0.1:8000 */
+  var CHAT_URL = (function () {
+    var port = window.location.port;
+    var host = window.location.hostname;
+    if (port === "8000" && (host === "127.0.0.1" || host === "localhost")) {
+      return window.location.origin + "/chat";
+    }
+    return "http://127.0.0.1:8000/chat";
+  })();
+
+  var chatButton = document.getElementById("chat-button");
+  var chatBox = document.getElementById("chat-box");
+  var messagesEl = document.getElementById("chat-messages");
+  var input = document.getElementById("message");
+  var sendBtn = document.getElementById("send-btn");
+  var chatClose = document.getElementById("chat-close");
+
+  /** Önceki turlar — API ile uyumlu (son mesaj burada değil). */
+  var chatHistory = [];
+
+  function scrollBottom() {
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  function addUserMessage(text) {
+    var div = document.createElement("div");
+    div.className = "message user";
+    div.textContent = text;
+    messagesEl.appendChild(div);
+    scrollBottom();
+  }
+
+  function addBotMessage(text) {
+    var div = document.createElement("div");
+    div.className = "message bot";
+    div.textContent = text;
+    messagesEl.appendChild(div);
+    scrollBottom();
+  }
+
+  function addErrorMessage(text) {
+    var div = document.createElement("div");
+    div.className = "message error";
+    div.textContent = text;
+    messagesEl.appendChild(div);
+    scrollBottom();
+  }
+
+  function setBusy(on) {
+    input.disabled = on;
+    sendBtn.disabled = on;
+  }
+
+  chatButton.onclick = function () {
+    chatBox.style.display = "flex";
+    chatButton.style.display = "none";
+    addBotMessage("Merhaba 👋 İşletmenize uygun sistemi birlikte belirleyelim. Kaç kasa kullanacaksınız?");
+    input.focus();
+  };
+
+  chatClose.onclick = function () {
+    chatBox.style.display = "none";
+    chatButton.style.display = "block";
+  };
+
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+
+  window.sendMessage = async function sendMessage() {
+    var text = (input.value || "").trim();
+    if (!text) return;
+
+    addUserMessage(text);
+    input.value = "";
+    setBusy(true);
+
+    try {
+      var res = await fetch(CHAT_URL, {
+        method: "POST",
+        mode: "cors",
+        credentials: "omit",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: text,
+          history: chatHistory,
+        }),
+      });
+
+      var data = await res.json().catch(function () {
+        return {};
+      });
+
+      if (!res.ok) {
+        var detail = data.detail;
+        throw new Error(
+          typeof detail === "string" ? detail : res.status + " " + res.statusText
+        );
+      }
+
+      var reply = data.reply != null ? String(data.reply) : "";
+      addBotMessage(reply || "(Yanıt yok)");
+
+      chatHistory.push({ role: "user", content: text });
+      chatHistory.push({ role: "assistant", content: reply || "(Yanıt yok)" });
+      while (chatHistory.length > 40) {
+        chatHistory.shift();
+      }
+    } catch (err) {
+      var m = err && err.message ? String(err.message) : "Bağlantı hatası";
+      if (
+        m === "Failed to fetch" ||
+        m === "NetworkError when attempting to fetch resource."
+      ) {
+        addErrorMessage(
+          "API'ye bağlanılamadı. Sunucu çalışıyor mu? Örnek: http://127.0.0.1:8000/ui/dinamik/"
+        );
+      } else {
+        addErrorMessage(m);
+      }
+    } finally {
+      setBusy(false);
+      input.focus();
+    }
+  };
+})();
+</script>
+
+</body>
+</html>

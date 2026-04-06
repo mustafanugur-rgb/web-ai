@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "GidApp",
+    "slug": "gidapp",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "gidapp",
+    "userInterfaceStyle": "automatic",
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Scan table QR codes to open your bill."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0d9488"
+      },
+      "permissions": ["CAMERA"]
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow GidApp to scan table QR codes."
+        }
+      ]
+    ],
+    "extra": {
+      "apiUrl": "http://localhost:8000"
+    }
+  }
+}

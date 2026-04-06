@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="bgC" x1="400" y1="40" x2="40" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f97316" stop-opacity="0.35"/>
+      <stop offset="0.45" stop-color="#59C34F" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#0f172a" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="cupC" x1="160" y1="120" x2="240" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#67B7E6"/>
+      <stop offset="1" stop-color="#2C89C8"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="220" rx="20" fill="url(#bgC)"/>
+  <path d="M148 72h104c8 0 14 6 14 14v72c0 28-22 50-50 50h-32c-28 0-50-22-50-50V86c0-8 6-14 14-14z" fill="url(#cupC)" stroke="rgba(255,255,255,0.25)" stroke-width="2"/>
+  <ellipse cx="200" cy="86" rx="44" ry="12" fill="rgba(27,59,91,0.55)"/>
+  <path d="M168 52c6-10 18-16 32-16s26 6 32 16" stroke="rgba(255,255,255,0.35)" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M176 40c4-8 12-12 24-12s20 4 24 12" stroke="rgba(255,255,255,0.2)" stroke-width="2" stroke-linecap="round"/>
+  <path d="M264 96h28c12 0 22 10 22 22s-10 22-22 22h-28" stroke="rgba(255,255,255,0.35)" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <circle cx="108" cy="140" r="14" fill="rgba(89,195,79,0.35)" stroke="rgba(89,195,79,0.55)" stroke-width="2"/>
+  <path d="M72 168c20-8 40-6 56 4" stroke="#2C89C8" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+</svg>

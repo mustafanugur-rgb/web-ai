@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="bgA" x1="400" y1="0" x2="0" y2="220" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f97316" stop-opacity="0.32"/>
+      <stop offset="0.5" stop-color="#2C89C8" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#0f172a" stop-opacity="0.88"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="220" rx="20" fill="url(#bgA)"/>
+  <ellipse cx="200" cy="178" rx="140" ry="18" fill="rgba(44,137,200,0.15)"/>
+  <rect x="120" y="56" width="160" height="112" rx="14" stroke="rgba(255,255,255,0.22)" stroke-width="2" fill="rgba(15,23,42,0.5)"/>
+  <rect x="136" y="72" width="128" height="10" rx="3" fill="rgba(103,183,230,0.35)"/>
+  <rect x="136" y="92" width="96" height="8" rx="2" fill="rgba(255,255,255,0.12)"/>
+  <rect x="136" y="108" width="112" height="8" rx="2" fill="rgba(255,255,255,0.1)"/>
+  <rect x="136" y="124" width="88" height="8" rx="2" fill="rgba(255,255,255,0.1)"/>
+  <circle cx="200" cy="168" r="44" fill="rgba(89,195,79,0.25)" stroke="rgba(89,195,79,0.5)" stroke-width="2"/>
+  <path d="M176 168h48M200 152v32" stroke="rgba(255,255,255,0.35)" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M88 96c12-18 28-28 48-32" stroke="#67B7E6" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+  <circle cx="72" cy="108" r="6" fill="#59C34F"/>
+</svg>

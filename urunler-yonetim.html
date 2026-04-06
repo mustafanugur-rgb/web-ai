@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Mağaza ürün yönetimi - Dinamik POS Yönetim Paneli">
+  <meta name="robots" content="noindex,follow">
+  <title>Ürün Yönetimi | Dinamik POS Yönetim</title>
+  <link rel="canonical" href="http://wwww.dinamikpos.com.tr.tr/urunler-yonetim.html">
+  
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/theme-toggle.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/products-admin.css">
+  <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('dinamik_theme')||'light');</script>
+  <script>document.documentElement.setAttribute('lang',localStorage.getItem('dinamik_lang')||'tr');</script>
+  <script src="js/admin-auth.js" defer></script>
+</head>
+<body class="admin-body">
+  <a href="#main-content" class="skip-link">İçeriğe atla</a>
+
+  <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-expanded="false" aria-label="Menüyü aç/kapat">
+    <span class="sidebar-toggle-bar"></span>
+    <span class="sidebar-toggle-bar"></span>
+    <span class="sidebar-toggle-bar"></span>
+  </button>
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Ana menü">
+    <div class="sidebar-header">
+      <a href="index.html" class="sidebar-logo"><img src="images/logo.png" alt="Dinamik POS" class="sidebar-logo-img" width="180" height="45" loading="lazy" decoding="async"></a>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="admin.html" class="sidebar-link">
+        <span class="sidebar-icon">📊</span>
+        Dashboard
+      </a>
+      <a href="site-rehberi.html" class="sidebar-link">
+        <span class="sidebar-icon">🗺️</span>
+        Site rehberi
+      </a>
+      <a href="raporlar.html" class="sidebar-link">
+        <span class="sidebar-icon">📈</span>
+        Raporlar
+      </a>
+      <a href="crm.html" class="sidebar-link">
+        <span class="sidebar-icon">👥</span>
+        CRM
+      </a>
+      <a href="urunler-yonetim.html" class="sidebar-link active" aria-current="page">
+        <span class="sidebar-icon">📦</span>
+        Ürünler
+      </a>
+      <a href="siparisler.html" class="sidebar-link">
+        <span class="sidebar-icon">📋</span>
+        Siparişler
+      </a>
+      <a href="kampanyalar.html" class="sidebar-link">
+        <span class="sidebar-icon">📢</span>
+        Kampanyalar
+      </a>
+      <a href="ayarlar.html" class="sidebar-link">
+        <span class="sidebar-icon">⚙️</span>
+        Ayarlar
+      </a>
+      <a href="ortaklar.html" class="sidebar-link">
+        <span class="sidebar-icon">🤝</span>
+        Çözüm Ortakları
+      </a>
+      <a href="kullanicilar.html" class="sidebar-link">
+        <span class="sidebar-icon">👤</span>
+        Kullanıcılar
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="theme-toggle sidebar-theme-toggle" role="group" aria-label="Tema seçimi">
+        <button type="button" data-theme-toggle="dark" aria-pressed="true" title="Koyu tema"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+        <button type="button" data-theme-toggle="light" aria-pressed="false" title="Açık tema"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
+      </div>
+      <a href="urunler.html" class="sidebar-link" target="_blank">→ Mağazayı Gör</a>
+      <a href="index.html" class="sidebar-link" data-i18n="admin_back">← Siteye Dön</a>
+      <button type="button" class="sidebar-link" id="admin-logout-btn" data-i18n="admin_logout" style="background:none;border:none;cursor:pointer;width:100%;text-align:left;font:inherit;color:inherit;">Çıkış</button>
+    </div>
+  </aside>
+
+  <div class="admin-main">
+    <header class="admin-header">
+      <h1 class="admin-title">Ürün Yönetimi</h1>
+      <div class="admin-header-actions">
+        <a href="urunler.html" class="btn btn-secondary btn-sm" target="_blank">Mağazayı Gör</a>
+        <span class="admin-user"></span>
+        <button type="button" class="btn btn-primary btn-sm" id="btn-add-product">+ Yeni Ürün</button>
+      </div>
+    </header>
+
+    <main id="main-content" class="admin-content">
+      <section class="widget-section">
+        <div class="stats-grid" style="margin-bottom: var(--space-4);">
+          <article class="stat-card card">
+            <div class="stat-header"><span class="stat-label">Listelenen ürün</span></div>
+            <div class="stat-value" id="stat-products-total">0</div>
+          </article>
+          <article class="stat-card card">
+            <div class="stat-header"><span class="stat-label">Farklı kategori</span></div>
+            <div class="stat-value" id="stat-products-categories">0</div>
+          </article>
+        </div>
+      </section>
+      <section class="widget-section">
+        <div class="card" style="margin-bottom: var(--space-4);">
+          <h2 class="admin-title" style="font-size: 1.125rem; margin-bottom: var(--space-2);">Ana sayfa — Yazılım paketleri ve fiyatlar</h2>
+          <p class="stat-meta" style="margin-bottom: var(--space-3); max-width: 52rem;">Ana sayfadaki «Yazılım Paketleri» kartları buradan yönetilir; veriler ürünler gibi bu tarayıcıda <strong>localStorage</strong> içinde kalır.</p>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom: var(--space-3);">
+            <button type="button" class="btn btn-primary btn-sm" id="btn-add-pricing-plan">+ Yeni paket</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-reset-pricing-plans">Varsayılana sıfırla</button>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table" role="table">
+              <thead>
+                <tr>
+                  <th scope="col">Paket</th>
+                  <th scope="col">Fiyat</th>
+                  <th scope="col">Öne çıkan</th>
+                  <th scope="col">İşlemler</th>
+                </tr>
+              </thead>
+              <tbody id="pricing-plans-tbody"></tbody>
+            </table>
+          </div>
+          <div id="pricing-plans-empty" class="table-empty" style="display:none;">
+            <div class="table-empty-icon">📋</div>
+            <p>Henüz paket yok. Varsayılanı yükleyin veya yeni paket ekleyin.</p>
+          </div>
+        </div>
+      </section>
+      <section class="widget-section">
+        <div class="card table-card">
+          <div class="table-wrapper">
+            <table class="data-table" role="table">
+              <thead>
+                <tr>
+                  <th scope="col">Görsel</th>
+                  <th scope="col">Ürün</th>
+                  <th scope="col">Kategori</th>
+                  <th scope="col">Fiyat</th>
+                  <th scope="col">İşlemler</th>
+                </tr>
+              </thead>
+              <tbody id="products-tbody">
+                <!-- JS ile doldurulacak -->
+              </tbody>
+            </table>
+          </div>
+          <div id="products-empty" class="table-empty" style="display:none;">
+            <div class="table-empty-icon">📦</div>
+            <p>Henüz ürün yok. Yeni ürün ekleyin.</p>
+            <button type="button" class="btn btn-primary" id="btn-add-empty">+ İlk Ürünü Ekle</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal: Ürün Ekle/Düzenle -->
+  <div class="modal-overlay" id="product-modal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+      <div class="modal-header">
+        <h2 id="modal-title">Yeni Ürün</h2>
+        <button type="button" class="modal-close" id="modal-close" aria-label="Kapat">&times;</button>
+      </div>
+      <form id="product-form" class="modal-body">
+        <input type="hidden" id="product-id" name="id">
+        <div class="form-group">
+          <label for="product-name">Ürün Adı *</label>
+          <input type="text" id="product-name" name="name" class="input" required>
+        </div>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="product-category">Kategori *</label>
+            <input type="text" id="product-category" name="category" class="input" list="product-category-list" required autocomplete="off" placeholder="Listeden seçin veya yeni kategori yazın">
+            <datalist id="product-category-list"></datalist>
+            <small class="form-hint">Mevcut kategorilerden birini seçebilir veya yeni bir ad yazıp kaydedebilirsiniz; kategori otomatik oluşturulur.</small>
+          </div>
+          <div class="form-group">
+            <label for="product-price">Fiyat (₺) *</label>
+            <input type="number" id="product-price" name="price" class="input" min="0" step="1" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="product-oldprice">Eski Fiyat (₺) - İndirim göstermek için</label>
+          <input type="number" id="product-oldprice" name="oldPrice" class="input" min="0" step="1" placeholder="Boş bırakılabilir">
+        </div>
+        <div class="form-group">
+          <label for="product-image">Görsel (URL veya dosya)</label>
+          <input type="text" id="product-image" name="image" class="input" placeholder="URL girin veya aşağıdan dosya yükleyin (600×600 önerilir, sitede saklanır)">
+          <input type="file" id="product-image-file" class="input" accept="image/png,image/jpeg,image/jpg,image/gif,image/webp" aria-label="Ürün görseli seç">
+          <span id="product-image-upload-status" class="stat-meta" style="display:none;"></span>
+        </div>
+        <div class="form-group">
+          <label for="product-desc">Açıklama</label>
+          <textarea id="product-desc" name="desc" class="input" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="product-features">Özellikler (virgülle ayırın)</label>
+          <input type="text" id="product-features" name="features" class="input" placeholder="Özellik 1, Özellik 2, Özellik 3">
+        </div>
+        <div class="form-group" style="margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--color-border);">
+          <span class="form-label" style="font-weight: 600; color: var(--color-accent);">Arama / SEO</span>
+          <small class="form-hint" style="display: block; margin-top: 2px;">Ürünün internette hangi aramalarda çıkacağını tanımlayın (Google vb.)</small>
+        </div>
+        <div class="form-group">
+          <label for="product-seo-title">SEO Başlık</label>
+          <input type="text" id="product-seo-title" name="seoTitle" class="input" maxlength="70" placeholder="Arama sonuçlarında görünecek başlık (örn: POS Touch 15&quot; Satış - Cafe Restoran)">
+          <small class="form-hint">Önerilen: 50–60 karakter</small>
+        </div>
+        <div class="form-group">
+          <label for="product-seo-desc">SEO Açıklama</label>
+          <textarea id="product-seo-desc" name="seoDesc" class="input" rows="2" maxlength="165" placeholder="Arama sonuçlarındaki kısa açıklama (150–160 karakter önerilir)"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="product-seo-keywords">Anahtar Kelimeler</label>
+          <input type="text" id="product-seo-keywords" name="seoKeywords" class="input" placeholder="pos satış, cafe pos, restoran yazarkasa, dokunmatik pos (virgülle ayırın)">
+          <small class="form-hint">Bu ürün hangi arama terimlerinde listelensin</small>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="modal-cancel">İptal</button>
+          <button type="submit" class="btn btn-primary">Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Yazılım paketi -->
+  <div class="modal-overlay" id="pricing-plan-modal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-labelledby="pp-modal-title" aria-modal="true">
+      <div class="modal-header">
+        <h2 id="pp-modal-title">Yeni Paket</h2>
+        <button type="button" class="modal-close" id="pp-modal-close" aria-label="Kapat">&times;</button>
+      </div>
+      <form id="pricing-plan-form" class="modal-body">
+        <div class="form-group">
+          <label for="pp-id">Paket kodu (ödeme linki: checkout.html?plan=…)</label>
+          <input type="text" id="pp-id" class="input" placeholder="örn. starter, growth" pattern="[a-z0-9-]*" autocomplete="off">
+          <small class="form-hint">Yeni pakette boş bırakırsanız paket adından üretilir. Küçük harf, rakam ve tire.</small>
+        </div>
+        <div class="form-group">
+          <label for="pp-name">Görünen ad *</label>
+          <input type="text" id="pp-name" class="input" required placeholder="Başlangıç">
+        </div>
+        <div class="form-group">
+          <label><input type="checkbox" id="pp-is-custom"> Sabit aylık fiyat yok (özel teklif metni göster)</label>
+        </div>
+        <div class="form-group" id="pp-row-price">
+          <label for="pp-price">Aylık fiyat (₺)</label>
+          <input type="number" id="pp-price" class="input" min="0" step="1" value="499">
+        </div>
+        <div class="form-group" id="pp-row-custom" style="display:none;">
+          <label for="pp-custom-text">Görünen metin</label>
+          <input type="text" id="pp-custom-text" class="input" value="Özel Teklif" placeholder="Özel Teklif">
+        </div>
+        <div class="form-group">
+          <label for="pp-billing">Fiyat yanı (örn. / Ay)</label>
+          <input type="text" id="pp-billing" class="input" value="/ Ay">
+        </div>
+        <div class="form-group">
+          <label><input type="checkbox" id="pp-featured"> Ortadaki vurgulu kart</label>
+        </div>
+        <div class="form-group">
+          <label for="pp-features">Özellik listesi (ödeme özeti; her satır bir madde)</label>
+          <textarea id="pp-features" class="input" rows="4" placeholder="Her satıra bir özellik"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="pp-primary-label">Birincil düğme metni</label>
+          <input type="text" id="pp-primary-label" class="input" placeholder="Ödemeye geç">
+        </div>
+        <div class="form-group">
+          <label for="pp-primary-href">Birincil link</label>
+          <input type="text" id="pp-primary-href" class="input" placeholder="checkout.html?plan=starter veya #demo">
+        </div>
+        <div class="form-group">
+          <label for="pp-secondary-label">İkincil düğme metni</label>
+          <input type="text" id="pp-secondary-label" class="input" placeholder="Teklif Al">
+        </div>
+        <div class="form-group">
+          <label for="pp-secondary-href">İkincil link</label>
+          <input type="text" id="pp-secondary-href" class="input" placeholder="#ai-sales-assistant">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="pp-modal-cancel">İptal</button>
+          <button type="submit" class="btn btn-primary">Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/config.js" defer></script>
+  <script src="js/translations.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/theme.js" defer></script>
+  <script src="js/admin-sidebar.js" defer></script>
+  <script src="js/admin-notifications.js" defer></script>
+  <script src="js/products.js" defer></script>
+  <script src="js/pricing-plans.js" defer></script>
+  <script src="js/products-admin.js" defer></script>
+  <script src="js/pricing-plans-admin.js" defer></script>
+</body>
+</html>

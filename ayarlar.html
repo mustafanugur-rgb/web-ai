@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Site ve ödeme ayarları - Dinamik POS Yönetim Paneli">
+  <meta name="robots" content="noindex,follow">
+  <title>Ayarlar | Dinamik POS Yönetim</title>
+  <link rel="canonical" href="https://www.dinamikpos.com.tr/ayarlar.html">
+  
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/theme-toggle.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('dinamik_theme')||'light');</script>
+  <script>document.documentElement.setAttribute('lang',localStorage.getItem('dinamik_lang')||'tr');</script>
+  <script src="js/admin-auth.js" defer></script>
+</head>
+<body class="admin-body">
+  <a href="#main-content" class="skip-link">İçeriğe atla</a>
+
+  <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-expanded="false" aria-label="Menüyü aç/kapat">
+    <span class="sidebar-toggle-bar"></span>
+    <span class="sidebar-toggle-bar"></span>
+    <span class="sidebar-toggle-bar"></span>
+  </button>
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Ana menü">
+    <div class="sidebar-header">
+      <a href="index.html" class="sidebar-logo"><img src="images/logo.png" alt="Dinamik POS" class="sidebar-logo-img" width="180" height="45" loading="lazy" decoding="async"></a>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="admin.html" class="sidebar-link">
+        <span class="sidebar-icon">📊</span>
+        Dashboard
+      </a>
+      <a href="site-rehberi.html" class="sidebar-link">
+        <span class="sidebar-icon">🗺️</span>
+        Site rehberi
+      </a>
+      <a href="raporlar.html" class="sidebar-link">
+        <span class="sidebar-icon">📈</span>
+        Raporlar
+      </a>
+      <a href="crm.html" class="sidebar-link">
+        <span class="sidebar-icon">👥</span>
+        CRM
+      </a>
+      <a href="urunler-yonetim.html" class="sidebar-link">
+        <span class="sidebar-icon">📦</span>
+        Ürünler
+      </a>
+      <a href="siparisler.html" class="sidebar-link">
+        <span class="sidebar-icon">📋</span>
+        Siparişler
+      </a>
+      <a href="kampanyalar.html" class="sidebar-link">
+        <span class="sidebar-icon">📢</span>
+        Kampanyalar
+      </a>
+      <a href="ayarlar.html" class="sidebar-link active" aria-current="page">
+        <span class="sidebar-icon">⚙️</span>
+        Ayarlar
+      </a>
+      <a href="ortaklar.html" class="sidebar-link">
+        <span class="sidebar-icon">🤝</span>
+        Çözüm Ortakları
+      </a>
+      <a href="kullanicilar.html" class="sidebar-link">
+        <span class="sidebar-icon">👤</span>
+        Kullanıcılar
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="theme-toggle sidebar-theme-toggle" role="group" aria-label="Tema seçimi">
+        <button type="button" data-theme-toggle="dark" aria-pressed="true" title="Koyu tema"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+        <button type="button" data-theme-toggle="light" aria-pressed="false" title="Açık tema"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
+      </div>
+      <a href="index.html" class="sidebar-link" data-i18n="admin_back">← Siteye Dön</a>
+      <button type="button" class="sidebar-link" id="admin-logout-btn" data-i18n="admin_logout" style="background:none;border:none;cursor:pointer;width:100%;text-align:left;font:inherit;color:inherit;">Çıkış</button>
+    </div>
+  </aside>
+
+  <div class="admin-main">
+    <header class="admin-header">
+      <h1 class="admin-title">Ayarlar</h1>
+      <div class="admin-header-actions">
+        <div id="lang-selector"></div>
+        <span class="admin-user"></span>
+        <span id="settings-saved-toast" class="settings-saved-toast" aria-live="polite">Ayarlar kaydedildi</span>
+        <button type="button" class="btn btn-primary" id="btn-save-settings" data-i18n="save">Kaydet</button>
+      </div>
+    </header>
+
+    <main id="main-content" class="admin-content">
+      <section class="widget-section" id="bolum-genel">
+        <div class="card">
+          <h2 class="section-title">Genel Ayarlar</h2>
+          <div class="form-group">
+            <label for="setting-firm">Firma Adı</label>
+            <input type="text" id="setting-firm" class="input" placeholder="Dinamik POS">
+          </div>
+          <div class="form-group">
+            <label for="setting-email">İletişim E-posta</label>
+            <input type="email" id="setting-email" class="input" placeholder="info@dinamikpos.com">
+          </div>
+          <div class="form-group">
+            <label for="setting-phone">Telefon</label>
+            <input type="tel" id="setting-phone" class="input" placeholder="+90 212 000 00 00">
+          </div>
+          <div class="form-group">
+            <label for="setting-whatsapp">WhatsApp Numarası</label>
+            <input type="tel" id="setting-whatsapp" class="input" placeholder="905321234567 (90 ile başlayın, boşluksuz)">
+            <small class="form-hint">Örn: 90532…, 0555… veya 555… — Bu tarayıcıda saklanır. <strong>Tüm ziyaretçiler</strong> için asıl numara <code>js/config.js</code> → <code>SITE_WHATSAPP</code> ve canlıda <code>api-php</code> / <code>data/site-whatsapp.txt</code> ile aynı olmalı.</small>
+          </div>
+          <div class="form-group">
+            <label for="setting-admin-password">Admin Panel Şifresi</label>
+            <input type="password" id="setting-admin-password" class="input" placeholder="••••••••" autocomplete="new-password">
+            <small class="form-hint">Varsayılan: admin123 — Değiştirirseniz yeni şifre ile giriş yapın</small>
+          </div>
+          <div class="form-group">
+            <label for="setting-social-facebook">Facebook</label>
+            <input type="url" id="setting-social-facebook" class="input" placeholder="https://facebook.com/...">
+          </div>
+          <div class="form-group">
+            <label for="setting-social-instagram">Instagram</label>
+            <input type="url" id="setting-social-instagram" class="input" placeholder="https://instagram.com/...">
+          </div>
+          <div class="form-group">
+            <label for="setting-social-twitter">X (Twitter)</label>
+            <input type="url" id="setting-social-twitter" class="input" placeholder="https://x.com/...">
+          </div>
+          <div class="form-group">
+            <label for="setting-social-linkedin">LinkedIn</label>
+            <input type="url" id="setting-social-linkedin" class="input" placeholder="https://linkedin.com/...">
+          </div>
+          <div class="form-group">
+            <label for="setting-social-youtube">YouTube</label>
+            <input type="url" id="setting-social-youtube" class="input" placeholder="https://youtube.com/...">
+          </div>
+        </div>
+      </section>
+
+      <section class="widget-section" id="bolum-gorseller">
+        <div class="card">
+          <h2 class="section-title">Site Görselleri</h2>
+          <p class="stat-meta" style="margin-bottom: var(--space-4);">Logo ve kapak görseli sitede saklanır (referanslardaki gibi). Logo <code>images/logo.png</code> olarak kaydedilir. Görünmüyorsa sayfayı <kbd>Ctrl+F5</kbd> ile yenileyin; canlı sitede Node yoksa bu dosyayı FTP ile <code>images/</code> klasörüne yükleyin.</p>
+          <div class="form-group">
+            <label>Site logosu</label>
+            <input type="file" id="setting-logo-file" class="input" accept="image/png,image/jpeg,image/jpg,image/webp,image/svg+xml" aria-label="Logo yükle">
+            <span id="setting-logo-status" class="stat-meta" style="display:none;"></span>
+          </div>
+          <div class="form-group">
+            <label>Kapak / ek görsel (ana sayfa vb.)</label>
+            <input type="file" id="setting-hero-file" class="input" accept="image/png,image/jpeg,image/jpg,image/webp" aria-label="Kapak görseli yükle">
+            <span id="setting-hero-status" class="stat-meta" style="display:none;"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="widget-section" id="bolum-seo">
+        <div class="card">
+          <h2 class="section-title">SEO Ayarlari</h2>
+          <p class="stat-meta" style="margin-bottom: var(--space-4);">Kayıt + <strong>Node sunucusu</strong> (<code>npm start</code>) ile: varsayılan açıklama ve OG/Twitter görseli aşağıdaki çok sayıda ziyaretçi sayfasına dosyaya yazılır. Ana sayfa ve ürünler için ayrı başlık/açıklama kullanılır; diğer sayfalarda başlık elle HTML’de kalır, açıklama varsayılandan güncellenir. <a href="site-rehberi.html">Site rehberi</a>nde tam liste var.</p>
+          <div class="form-group">
+            <label for="setting-seo-site-name">Site Adi (OG/Twitter)</label>
+            <input type="text" id="setting-seo-site-name" class="input" placeholder="Dinamik POS">
+          </div>
+          <div class="form-group">
+            <label for="setting-seo-global-description">Varsayilan Description</label>
+            <textarea id="setting-seo-global-description" class="input" rows="3" placeholder="Site genelinde kullanilacak varsayilan aciklama"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="setting-seo-og-image">OG / Twitter Gorsel URL</label>
+            <input type="url" id="setting-seo-og-image" class="input" placeholder="https://www.dinamikpos.com.tr/images/logo.png">
+            <small class="form-hint">Tam URL girin. Bos birakirsaniz mevcut sayfa gorseli kullanilir.</small>
+          </div>
+          <hr style="margin: var(--space-4) 0; border: 0; border-top: 1px solid var(--color-border);">
+          <div class="form-group">
+            <label for="setting-seo-home-title">Ana Sayfa SEO Title</label>
+            <input type="text" id="setting-seo-home-title" class="input" placeholder="Cafe & Restoranlar Icin Yazilim ve Ekipman | Dinamik POS">
+          </div>
+          <div class="form-group">
+            <label for="setting-seo-home-description">Ana Sayfa SEO Description</label>
+            <textarea id="setting-seo-home-description" class="input" rows="3" placeholder="Ana sayfa meta description"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="setting-seo-products-title">Ürünler SEO Title</label>
+            <input type="text" id="setting-seo-products-title" class="input" placeholder="Ürünler | Dinamik POS E-ticaret">
+          </div>
+          <div class="form-group">
+            <label for="setting-seo-products-description">Ürünler SEO Description</label>
+            <textarea id="setting-seo-products-description" class="input" rows="3" placeholder="Ürünler sayfası meta description"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="widget-section" id="bolum-odeme">
+        <div class="card">
+          <h2 class="section-title">Ödeme Tipleri & Bağlama</h2>
+          <p class="stat-meta" style="margin-bottom: var(--space-4);">Ödeme yöntemlerini bağlayın ve yapılandırın.</p>
+
+          <div class="payment-method-card">
+            <div class="payment-method-header">
+              <span class="payment-method-name">💳 PayTR (Kredi Kartı)</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-paytr-enabled" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="payment-method-body" id="paytr-settings">
+              <div class="form-group">
+                <label for="setting-paytr-merchant">Merchant ID</label>
+                <input type="text" id="setting-paytr-merchant" class="input" placeholder="PayTR Merchant ID">
+              </div>
+              <div class="form-group">
+                <label for="setting-paytr-key">Merchant Key</label>
+                <input type="password" id="setting-paytr-key" class="input" placeholder="••••••••">
+              </div>
+              <div class="form-group">
+                <label for="setting-paytr-salt">Merchant Salt</label>
+                <input type="password" id="setting-paytr-salt" class="input" placeholder="••••••••">
+              </div>
+            </div>
+          </div>
+
+          <div class="payment-method-card">
+            <div class="payment-method-header">
+              <span class="payment-method-name">🏦 Havale / EFT</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-havale-enabled">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="payment-method-body" id="havale-settings">
+              <div class="form-group">
+                <label for="setting-havale-bank">Banka Adı</label>
+                <input type="text" id="setting-havale-bank" class="input" placeholder="Örn: Ziraat Bankası">
+              </div>
+              <div class="form-group">
+                <label for="setting-havale-iban">IBAN</label>
+                <input type="text" id="setting-havale-iban" class="input" placeholder="TR00 0000 0000 0000 0000 0000 00">
+              </div>
+              <div class="form-group">
+                <label for="setting-havale-account">Hesap Numarası</label>
+                <input type="text" id="setting-havale-account" class="input" placeholder="Hesap numarası">
+              </div>
+              <div class="form-group">
+                <label for="setting-havale-branch">Şube Kodu</label>
+                <input type="text" id="setting-havale-branch" class="input" placeholder="Şube kodu (opsiyonel)">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="widget-section" id="bolum-efatura">
+        <div class="card">
+          <h2 class="section-title">E-Fatura & Fatura Ayarları</h2>
+          <div class="form-group setting-toggle-row">
+            <div>
+              <label for="setting-efatura-auto">Otomatik E-Fatura Kes</label>
+              <p class="stat-meta">Satılan her ürün için otomatik e-fatura kesilsin</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="setting-efatura-auto">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="form-group" id="efatura-extra" style="display:none;">
+            <label for="setting-efatura-prefix">Fatura Seri Öneki</label>
+            <input type="text" id="setting-efatura-prefix" class="input" placeholder="Örn: DPO">
+          </div>
+        </div>
+      </section>
+
+      <section class="widget-section" id="bolum-magaza">
+        <div class="card">
+          <h2 class="section-title">Mağaza Ayarları</h2>
+          <div class="form-group">
+            <label for="setting-kdv">KDV Oranı (%)</label>
+            <input type="number" id="setting-kdv" class="input" value="18" min="0" max="100">
+          </div>
+          <div class="form-group">
+            <label for="setting-currency">Para Birimi</label>
+            <select id="setting-currency" class="input">
+              <option value="TRY" selected>TRY (₺)</option>
+              <option value="USD">USD ($)</option>
+              <option value="EUR">EUR (€)</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section class="widget-section" id="bolum-ciro">
+        <div class="card">
+          <h2 class="section-title">📈 Ciro Ayarları</h2>
+          <p class="stat-meta" style="margin-bottom: var(--space-4);">Günlük, haftalık ve aylık ciro hedefleri ile raporlama dönemi.</p>
+          <div class="form-row" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-4);">
+            <div class="form-group">
+              <label for="setting-ciro-gunluk">Günlük Ciro Hedefi (₺)</label>
+              <input type="number" id="setting-ciro-gunluk" class="input" placeholder="0" min="0" step="100">
+            </div>
+            <div class="form-group">
+              <label for="setting-ciro-haftalik">Haftalık Ciro Hedefi (₺)</label>
+              <input type="number" id="setting-ciro-haftalik" class="input" placeholder="0" min="0" step="1000">
+            </div>
+            <div class="form-group">
+              <label for="setting-ciro-aylik">Aylık Ciro Hedefi (₺)</label>
+              <input type="number" id="setting-ciro-aylik" class="input" placeholder="0" min="0" step="1000">
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:var(--space-4);">
+            <label for="setting-ciro-rapor-donem">Raporlama Dönemi</label>
+            <select id="setting-ciro-rapor-donem" class="input">
+              <option value="gunluk">Günlük</option>
+              <option value="haftalik">Haftalık</option>
+              <option value="aylik" selected>Aylık</option>
+            </select>
+            <small class="form-hint">Dashboard ve raporlarda varsayılan görüntüleme dönemi</small>
+          </div>
+          <div class="form-group">
+            <label for="setting-ciro-mesai-baslangic">Mesai Başlangıç (Ciro günü)</label>
+            <input type="time" id="setting-ciro-mesai-baslangic" class="input" value="06:00">
+            <small class="form-hint">Bu saatten sonraki satışlar yeni güne sayılır</small>
+          </div>
+        </div>
+      </section>
+
+      <section class="widget-section" id="bolum-canli">
+        <div class="card">
+          <h2 class="section-title">Canlıya alma kontrol listesi</h2>
+          <p class="stat-meta" style="margin-bottom: var(--space-3);">Yayına çıkmadan önce teknik kontroller (işaretleme tarayıcıda saklanmaz; yazdırılabilir).</p>
+          <ul class="checklist-plain" style="list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-2);">
+            <li><label style="display: flex; gap: var(--space-2); align-items: flex-start; cursor: pointer;"><input type="checkbox"> Alan adı (DNS) doğru sunucuya yönlendirildi</label></li>
+            <li><label style="display: flex; gap: var(--space-2); align-items: flex-start; cursor: pointer;"><input type="checkbox"> SSL sertifikası aktif (HTTPS, kilit ikonu)</label></li>
+            <li><label style="display: flex; gap: var(--space-2); align-items: flex-start; cursor: pointer;"><input type="checkbox"> İletişim e-postası ve form bildirimleri test edildi</label></li>
+            <li><label style="display: flex; gap: var(--space-2); align-items: flex-start; cursor: pointer;"><input type="checkbox"> Ödeme / PayTR veya havale bilgileri canlı ortamda doğrulandı</label></li>
+            <li><label style="display: flex; gap: var(--space-2); align-items: flex-start; cursor: pointer;"><input type="checkbox"> Düzenli yedek: Ayarlar → Yedeği İndir veya sunucu yedeği planlandı</label></li>
+            <li><label style="display: flex; gap: var(--space-2); align-items: flex-start; cursor: pointer;"><input type="checkbox"> Sunucuda CSRF_SECRET ve MAIL_* ortam değişkenleri canlı değerlerle ayarlı</label></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="widget-section" id="bolum-veri">
+        <div class="card">
+          <h2 class="section-title">Veri Yönetimi</h2>
+          <p class="stat-meta" style="margin-bottom: var(--space-4);">LocalStorage'da saklanan verileri yedekleyebilir veya sıfırlayabilirsiniz.</p>
+          <div style="display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center;">
+            <button type="button" class="btn btn-primary btn-sm" id="btn-backup-export">Yedeği İndir (JSON)</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-backup-import">Yedekten geri yükle</button>
+            <input type="file" id="backup-import-file" accept=".json,application/json" style="position:absolute;width:0;height:0;opacity:0;pointer-events:none;" aria-hidden="true" tabindex="-1">
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-reset-cart">Sepeti Temizle</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-reset-products">Ürünleri Varsayılana Döndür</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-reset-all">Tüm Verileri Temizle</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/config.js" defer></script>
+  <script src="js/translations.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/theme.js" defer></script>
+  <script src="js/admin-sidebar.js" defer></script>
+  <script src="js/admin-notifications.js" defer></script>
+  <script src="js/backup-export.js" defer></script>
+  <script src="js/ayarlar-admin.js" defer></script>
+</body>
+</html>

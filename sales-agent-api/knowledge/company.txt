@@ -1,0 +1,36 @@
+DinamikPOS — Restaurant Point of Sale (Company Knowledge Base)
+
+ABOUT THE COMPANY
+DinamikPOS is a B2B software company focused on restaurant and café operations. We sell cloud-connected POS terminals, kitchen display systems (KDS), handheld order tablets, and back-office reporting. Headquarters support is available on business days; 24/7 phone support is included on Enterprise plans only.
+
+PRODUCT LINES
+1) DinamikPOS Lite — Single terminal, one location, basic menu and cash/card payments. Best for small cafés and kiosks. Includes end-of-day reports and basic inventory counts.
+2) DinamikPOS Pro — Multi-terminal, table layout, split bills, staff roles, and integrations with common accounting exports. Recommended for full-service restaurants with one or more branches.
+3) DinamikPOS Enterprise — Central menu and pricing for many locations, API access, advanced analytics, loyalty integrations, and dedicated account manager. Minimum contract 12 months.
+
+HARDWARE
+We offer certified Android tablets and fixed POS terminals with receipt printers. Printers are thermal 80mm; spare rolls are sold separately. Hardware warranty is 24 months when purchased through DinamikPOS; third-party devices are not supported for warranty claims.
+
+KITCHEN DISPLAY (KDS)
+KDS is available on Pro and Enterprise. Orders route to kitchen stations by category (grill, cold, bar). Bump-to-complete reduces ticket errors. Lite does not include KDS.
+
+PAYMENTS
+We support major bank POS integrations in Turkey (bank-specific; list updated quarterly). Online payment links for delivery orders are available on Pro and Enterprise. DinamikPOS does not store full card numbers; processing follows PCI-DSS aligned practices via certified partners.
+
+PRICING (INDICATIVE — CONFIRM WITH SALES)
+Lite: monthly software fee per terminal (contact sales for current campaign pricing).
+Pro: per terminal + optional KDS screen license.
+Enterprise: per location bundle; API and analytics modules priced separately.
+Setup and training fees may apply for multi-site rollouts.
+
+IMPLEMENTATION
+Typical go-live: 2–4 weeks for single site after menu import; multi-branch may take longer. We provide remote onboarding and on-site training where contracted.
+
+DATA AND COMPLIANCE
+Customer data is hosted in EU-region cloud options where available. Backups are daily; point-in-time restore is on Enterprise. Lite retains 90 days of detailed transaction logs in portal; longer retention on higher tiers.
+
+CONTACT
+Sales inquiries: sales@dinamikpos.example — Demo booking: weekdays 09:00–18:00 (local time).
+
+POLICY
+We do not guarantee specific revenue outcomes. All features depend on plan tier and signed order form.

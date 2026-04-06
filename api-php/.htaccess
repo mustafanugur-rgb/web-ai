@@ -1,0 +1,15 @@
+# Dinamik POS - PHP API URL yönlendirme
+# Bu klasörü public_html/api/ olarak yükleyin.
+RewriteEngine On
+RewriteBase /api/
+
+RewriteRule ^csrf-token$ csrf-token.php [L]
+RewriteRule ^paytr/token$ paytr/token.php [L]
+RewriteRule ^paytr/callback$ paytr/callback.php [L]
+RewriteRule ^settings/paytr$ settings/paytr.php [L]
+RewriteRule ^upload/partner-logo$ upload/partner-logo.php [L]
+RewriteRule ^upload/product-image$ upload/product-image.php [L]
+RewriteRule ^upload/site-image$ upload/site-image.php [L]
+RewriteRule ^acil-destek$ acil-destek.php [L]
+RewriteRule ^dinamik-sales/chat$ dinamik-sales/chat.php [L]
+RewriteRule ^dinamik-sales/lead$ dinamik-sales/lead.php [L]

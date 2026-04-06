@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex,follow">
+  <title>Müşteri Girişi | Dinamik POS E-ticaret</title>
+  <link rel="canonical" href="http://wwww.dinamikpos.com.tr.tr/giris.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('dinamik_theme')||'light');</script>
+  <script>document.documentElement.setAttribute('lang',localStorage.getItem('dinamik_lang')||'tr');</script>
+  <style>
+    .login-page { min-height: 100vh; min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding: max(2rem, env(safe-area-inset-top, 0px)) max(2rem, env(safe-area-inset-right, 0px)) max(2rem, env(safe-area-inset-bottom, 0px)) max(2rem, env(safe-area-inset-left, 0px)); }
+    .login-card { max-width: 400px; width: 100%; }
+    .login-logo { text-align: center; margin-bottom: var(--space-8); }
+    .login-logo img { height: 56px; }
+    .login-error { color: var(--color-error); font-size: var(--text-sm); margin-top: var(--space-2); display: none; }
+    .login-hint { text-align: center; margin-top: var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted); }
+    .login-lang { position: absolute; top: max(var(--space-4), env(safe-area-inset-top, 0px)); right: max(var(--space-4), env(safe-area-inset-right, 0px)); }
+    .login-admin-cta {
+      margin-bottom: var(--space-6);
+      padding: var(--space-4);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-accent);
+      background: linear-gradient(135deg, rgba(44, 137, 200, 0.12), rgba(44, 137, 200, 0.04));
+    }
+    .login-admin-cta p { margin: 0 0 var(--space-3); font-size: var(--text-sm); color: var(--color-text-secondary); line-height: 1.45; }
+    .login-admin-cta strong { color: var(--color-text-primary); display: block; margin-bottom: var(--space-1); font-size: var(--text-base); }
+  </style>
+</head>
+<body>
+  <div class="login-lang" id="lang-selector"></div>
+  <div class="login-page">
+    <div class="login-card card">
+      <div class="login-logo">
+        <a href="index.html"><img src="images/logo.png" alt="Dinamik POS" width="180" height="45" loading="lazy" decoding="async"></a>
+      </div>
+      <h1 style="text-align:center; margin-bottom: var(--space-2);" data-i18n="login_title">Müşteri Girişi</h1>
+      <p style="text-align:center; color: var(--color-text-secondary); font-size: var(--text-sm); margin-bottom: var(--space-6);" data-i18n="login_subtitle">Hesabınızla giriş yapın, siparişlerinizi görüntüleyin.</p>
+      <div class="login-admin-cta" role="region" aria-label="Yönetim paneli girişi">
+        <strong>Mağaza / yönetim paneline mi gireceksiniz?</strong>
+        <p>Bu sayfa <em>sadece müşteri hesabı</em> içindir; e-posta zorunludur. Panel için ayrı giriş kullanılır: e-postayı boş bırakıp yönetici şifresi ile veya panel kullanıcı e-postanız ile.</p>
+        <a href="admin-login.html" class="btn btn-primary btn-block">Yönetim paneli girişi →</a>
+      </div>
+      <p id="kayit-basarili-msg" style="display:none; text-align:center; padding: var(--space-3); background: var(--color-bg-secondary); border-radius: var(--radius-md); color: var(--color-success, #0ea5e9); font-size: var(--text-sm); margin-bottom: var(--space-4);" data-i18n="login_success_msg">Kayıt başarılı! E-posta ve şifrenizle giriş yapabilirsiniz.</p>
+      <form id="customer-login-form">
+        <div class="form-group">
+          <label for="customer-email" data-i18n="login_email">E-posta *</label>
+          <input type="email" id="customer-email" class="input" data-i18n-placeholder="login_email_placeholder" placeholder="ornek@email.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="customer-password" data-i18n="login_password">Şifre *</label>
+          <input type="password" id="customer-password" class="input" data-i18n-placeholder="login_password_placeholder" placeholder="Şifreniz" required autocomplete="current-password">
+        </div>
+        <p class="login-error" id="customer-login-error" data-i18n="login_error_msg">E-posta veya şifre hatalı. Lütfen tekrar deneyin.</p>
+        <button type="submit" class="btn btn-primary btn-block" data-i18n="login_btn">Giriş Yap</button>
+      </form>
+      <p class="login-hint" style="margin-top: var(--space-4);">
+        <span data-i18n="login_register_question">Üye değil misiniz?</span> <a href="kayit.html" data-i18n="login_register_link">Üye olun (Kayıt)</a>
+      </p>
+      <p class="login-hint">
+        <a href="index.html" data-i18n="login_back_shop">← Alışverişe Dön</a>
+        <span style="margin: 0 0.5rem;">|</span>
+        <a href="admin-login.html"><span data-i18n="login_admin_question">Mağaza yöneticisi misiniz?</span> <span data-i18n="login_admin_link">Panel girişi</span></a>
+      </p>
+    </div>
+  </div>
+  <script src="js/config.js" defer></script>
+  <script src="js/translations.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/musteri-auth.js" defer></script>
+  <script>
+    (function(){
+      var container = document.getElementById('lang-selector');
+      if (container && typeof I18N !== 'undefined' && I18N.renderLangSelector) I18N.renderLangSelector(container);
+    })();
+    if (new URLSearchParams(window.location.search).get('kayit') === 'ok') {
+      var el = document.getElementById('kayit-basarili-msg');
+      if (el) el.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

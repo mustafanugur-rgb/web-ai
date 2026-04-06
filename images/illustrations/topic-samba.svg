@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="bgSam" x1="200" y1="0" x2="200" y2="220" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2C89C8" stop-opacity="0.4"/>
+      <stop offset="0.6" stop-color="#59C34F" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#0f172a" stop-opacity="0.88"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="220" rx="20" fill="url(#bgSam)"/>
+  <circle cx="200" cy="110" r="72" stroke="rgba(103,183,230,0.35)" stroke-width="2" fill="none"/>
+  <circle cx="200" cy="110" r="48" stroke="rgba(89,195,79,0.25)" stroke-width="2" fill="none"/>
+  <circle cx="200" cy="110" r="24" fill="rgba(44,137,200,0.35)"/>
+  <circle cx="104" cy="64" r="10" fill="#67B7E6" opacity="0.85"/>
+  <circle cx="296" cy="64" r="10" fill="#59C34F" opacity="0.85"/>
+  <circle cx="88" cy="148" r="8" fill="#f97316" opacity="0.75"/>
+  <circle cx="312" cy="148" r="8" fill="#67B7E6" opacity="0.75"/>
+  <path d="M112 68l72 40M288 68l-72 40M96 152l88-28M304 152l-88-28" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+  <path d="M200 38v24M200 158v24M62 110h24M314 110h24" stroke="rgba(255,255,255,0.12)" stroke-width="2" stroke-linecap="round"/>
+</svg>

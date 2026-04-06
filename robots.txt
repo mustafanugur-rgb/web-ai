@@ -1,0 +1,30 @@
+# Dinamik POS - robots.txt
+# Production crawling policy
+
+User-agent: *
+Allow: /
+
+# Keep admin and transactional pages out of search indexes
+Disallow: /admin.html
+Disallow: /admin-login.html
+Disallow: /crm.html
+Disallow: /kullanicilar.html
+Disallow: /siparisler.html
+Disallow: /urunler-yonetim.html
+Disallow: /ayarlar.html
+Disallow: /kampanyalar.html
+Disallow: /raporlar.html
+Disallow: /ortaklar.html
+Disallow: /giris.html
+Disallow: /kayit.html
+Disallow: /hesabim.html
+Disallow: /sepet.html
+Disallow: /checkout.html
+Disallow: /odeme-basarili.html
+Disallow: /odeme-basarisiz.html
+Disallow: /404.html
+
+# Google: satir basina bir URL (duz metin) — XML calismazsa bunu Search Console'a verin
+Sitemap: https://www.dinamikpos.com.tr/sitemap-urls.txt
+# XML yedek (aciliyorsa ikisinden biri yeterli)
+Sitemap: https://www.dinamikpos.com.tr/sitemap-seo.xml

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="bgR" x1="0" y1="0" x2="400" y2="220" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2C89C8" stop-opacity="0.32"/>
+      <stop offset="0.5" stop-color="#f97316" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#0f172a" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="220" rx="20" fill="url(#bgR)"/>
+  <ellipse cx="200" cy="184" rx="120" ry="16" fill="rgba(44,137,200,0.12)"/>
+  <path d="M128 148c0-40 32-72 72-72s72 32 72 72H128z" fill="rgba(103,183,230,0.25)" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+  <ellipse cx="200" cy="96" rx="52" ry="16" fill="rgba(249,115,22,0.35)" stroke="rgba(249,115,22,0.45)" stroke-width="2"/>
+  <circle cx="200" cy="72" r="6" fill="#59C34F"/>
+  <path d="M168 120h64M176 132h48" stroke="rgba(255,255,255,0.2)" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M96 88l-8 48h24l-8-48zM312 88l-8 48h24l-8-48z" fill="rgba(44,137,200,0.45)" stroke="rgba(103,183,230,0.5)" stroke-width="1.5"/>
+  <path d="M108 56c8 20 24 32 44 36" stroke="#67B7E6" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+</svg>

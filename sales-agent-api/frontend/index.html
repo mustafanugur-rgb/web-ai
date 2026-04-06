@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en" id="doc-root">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sales Chat</title>
+  <style>
+    /* Minimal reset — gömülü kullanımda sayfa içeriği görünmez; sadece widget */
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+    }
+
+    :root {
+      --widget-width: min(400px, calc(100vw - 32px));
+      --widget-height: min(600px, calc(100vh - 100px));
+      --radius: 16px;
+      --radius-sm: 12px;
+      --shadow: 0 12px 40px rgba(15, 23, 42, 0.18);
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --user-bubble: #2563eb;
+      --ai-bubble: #f1f5f9;
+      --error: #b91c1c;
+      --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+
+    /* Reset only inside widget root — safe to embed */
+    #sales-chat-widget,
+    #sales-chat-widget * {
+      box-sizing: border-box;
+    }
+
+    #sales-chat-widget {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 99999;
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 1.45;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #sales-chat-widget .panel {
+      width: var(--widget-width);
+      height: var(--widget-height);
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    #sales-chat-widget .panel[hidden] {
+      display: none;
+    }
+
+    #sales-chat-widget .header {
+      padding: 14px 16px;
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      color: #fff;
+      font-weight: 600;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    #sales-chat-widget .header span.sub {
+      font-size: 11px;
+      font-weight: 400;
+      opacity: 0.85;
+    }
+
+    #sales-chat-widget .btn-icon {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    #sales-chat-widget .btn-icon:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    #sales-chat-widget .messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    #sales-chat-widget .msg {
+      max-width: 88%;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+
+    #sales-chat-widget .msg.user {
+      align-self: flex-end;
+      background: var(--user-bubble);
+      color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+
+    #sales-chat-widget .msg.ai {
+      align-self: flex-start;
+      background: var(--ai-bubble);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-bottom-left-radius: 4px;
+    }
+
+    #sales-chat-widget .msg.error {
+      align-self: stretch;
+      max-width: 100%;
+      background: #fef2f2;
+      color: var(--error);
+      border: 1px solid #fecaca;
+      font-size: 13px;
+    }
+
+    #sales-chat-widget .loading-row {
+      align-self: flex-start;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: var(--ai-bubble);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    #sales-chat-widget .loading-row.active {
+      display: flex;
+    }
+
+    #sales-chat-widget .dots {
+      display: flex;
+      gap: 4px;
+    }
+
+    #sales-chat-widget .dots span {
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: bounce 1.2s infinite ease-in-out;
+    }
+
+    #sales-chat-widget .dots span:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+
+    #sales-chat-widget .dots span:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    @keyframes bounce {
+      0%, 80%, 100% {
+        transform: translateY(0);
+        opacity: 0.4;
+      }
+      40% {
+        transform: translateY(-4px);
+        opacity: 1;
+      }
+    }
+
+    #sales-chat-widget .lead-gate {
+      padding: 10px 12px;
+      border-top: 1px solid var(--border);
+      background: #f1f5f9;
+      flex-shrink: 0;
+    }
+
+    #sales-chat-widget .lead-gate[hidden] {
+      display: none !important;
+    }
+
+    #sales-chat-widget .lead-gate-hint {
+      margin: 0 0 8px 0;
+      font-size: 12px;
+      line-height: 1.4;
+      color: var(--text-muted);
+    }
+
+    #sales-chat-widget .btn-lead-gate {
+      width: 100%;
+      padding: 9px 12px;
+      background: #fff;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      cursor: pointer;
+      font: inherit;
+      font-size: 13px;
+    }
+
+    #sales-chat-widget .btn-lead-gate:hover:not(:disabled) {
+      background: #eff6ff;
+    }
+
+    #sales-chat-widget .btn-lead-gate:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    #sales-chat-widget .lead-strip {
+      padding: 10px 12px;
+      border-top: 1px solid var(--border);
+      background: #f8fafc;
+      flex-shrink: 0;
+    }
+
+    #sales-chat-widget .lead-strip[hidden] {
+      display: none !important;
+    }
+
+    #sales-chat-widget .lead-strip-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    #sales-chat-widget .lead-strip .lead-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    #sales-chat-widget .lead-strip input {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font: inherit;
+      font-size: 13px;
+    }
+
+    #sales-chat-widget .lead-strip input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    #sales-chat-widget .btn-lead {
+      margin-top: 4px;
+      width: 100%;
+      padding: 9px 12px;
+      background: #0f172a;
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      cursor: pointer;
+      font: inherit;
+      font-size: 13px;
+    }
+
+    #sales-chat-widget .btn-lead:hover:not(:disabled) {
+      background: #1e293b;
+    }
+
+    #sales-chat-widget .btn-lead:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    #sales-chat-widget .composer {
+      padding: 12px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+    }
+
+    #sales-chat-widget .composer textarea {
+      flex: 1;
+      min-height: 44px;
+      max-height: 120px;
+      resize: none;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font: inherit;
+      outline: none;
+    }
+
+    #sales-chat-widget .composer textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    #sales-chat-widget .composer textarea:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    #sales-chat-widget .btn-send {
+      min-height: 44px;
+      padding: 0 18px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    #sales-chat-widget .btn-send:hover:not(:disabled) {
+      background: var(--accent-hover);
+    }
+
+    #sales-chat-widget .btn-send:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    /* Launcher: metin + ikon — sadece emoji bazı ortamlarda görünmez */
+    #sales-chat-widget .launcher {
+      min-width: 120px;
+      height: 52px;
+      padding: 0 16px;
+      border-radius: 26px;
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      color: #fff;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    #sales-chat-widget .launcher .launcher-ico {
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    #sales-chat-widget .launcher:hover {
+      filter: brightness(1.05);
+    }
+
+    #sales-chat-widget .launcher[hidden] {
+      display: none;
+    }
+
+    @media (max-width: 480px) {
+      #sales-chat-widget {
+        bottom: 16px;
+        right: 16px;
+        left: 16px;
+      }
+
+      #sales-chat-widget .panel {
+        width: 100%;
+        height: min(85vh, 600px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!--
+    Embed: copy the #sales-chat-widget block + script into your page.
+    Change API_BASE if your API is on another host (and enable CORS on the API).
+  -->
+  <div id="sales-chat-widget" aria-live="polite">
+    <button type="button" class="launcher" id="chat-launcher">
+      <span class="launcher-ico" aria-hidden="true">💬</span>
+      <span id="chat-launcher-label">Chat</span>
+    </button>
+
+    <div class="panel" id="chat-panel" hidden>
+      <div class="header">
+        <div>
+          <div id="chat-header-title">Sales Assistant</div>
+          <span class="sub" id="chat-header-sub">POS · We’re here to help</span>
+        </div>
+        <button type="button" class="btn-icon" id="chat-close" aria-label="">×</button>
+      </div>
+
+      <div class="messages" id="chat-messages" role="log"></div>
+
+      <div class="loading-row" id="chat-loading" aria-hidden="true">
+        <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
+        <span id="chat-thinking-text">Thinking…</span>
+      </div>
+
+      <div class="lead-gate" id="lead-gate" hidden>
+        <p class="lead-gate-hint" id="lead-gate-hint"></p>
+        <button type="button" class="btn-lead-gate" id="lead-gate-btn"></button>
+      </div>
+
+      <form class="lead-strip" id="lead-form" autocomplete="on" hidden>
+        <div class="lead-strip-title" id="lead-strip-title">Contact</div>
+        <div class="lead-fields">
+          <input type="text" id="lead-name" name="name" maxlength="500" />
+          <input type="tel" id="lead-phone" name="phone" maxlength="50" />
+          <input type="email" id="lead-email" name="email" maxlength="320" />
+        </div>
+        <button type="submit" class="btn-lead" id="lead-save">Save</button>
+        <button type="button" class="btn-lead-gate" id="lead-hide-btn" style="margin-top: 8px; border-color: var(--border); color: var(--text-muted)"></button>
+      </form>
+
+      <form class="composer" id="chat-form">
+        <label for="chat-input" class="visually-hidden" id="chat-message-label">Message</label>
+        <textarea
+          id="chat-input"
+          placeholder=""
+          rows="1"
+          autocomplete="off"
+        ></textarea>
+        <button type="submit" class="btn-send" id="chat-send">Send</button>
+      </form>
+    </div>
+  </div>
+
+  <style>
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+  </style>
+
+  <script>
+    (function () {
+      "use strict";
+
+      /**
+       * API ile aynı adresten açıldıysa (örn. http://127.0.0.1:8000/ui/) → /chat (CORS yok).
+       * Başka porttan (5500) veya file:/// ise → 8000’e gider.
+       */
+      var CHAT_URL = (function () {
+        var port = window.location.port;
+        var host = window.location.hostname;
+        if (port === "8000" && (host === "127.0.0.1" || host === "localhost")) {
+          return window.location.origin + "/chat";
+        }
+        return "http://127.0.0.1:8000/chat";
+      })();
+
+      var LEAD_URL = (function () {
+        var port = window.location.port;
+        var host = window.location.hostname;
+        if (port === "8000" && (host === "127.0.0.1" || host === "localhost")) {
+          return window.location.origin + "/lead";
+        }
+        return "http://127.0.0.1:8000/lead";
+      })();
+
+      /** Tarayıcı diline göre arayüz (navigator.languages / language) */
+      var STRINGS = {
+        tr: {
+          title: "Satış Asistanı",
+          subtitle: "POS · Size yardımcı olmak için buradayız",
+          chat: "Sohbet",
+          openChat: "Sohbeti aç",
+          closeChat: "Sohbeti kapat",
+          thinking: "Düşünüyor…",
+          messageLabel: "Mesaj",
+          placeholder: "Mesajınızı yazın…",
+          send: "Gönder",
+          noReply: "(Yanıt yok)",
+          networkError:
+            "Bağlantı kurulamadı. API çalışıyor mu? Önerilen: http://127.0.0.1:8000/ui/",
+          serverError: "Sunucuya ulaşılamadı.",
+          leadTitle: "İletişim bilgileriniz (isteğe bağlı)",
+          leadNamePh: "Ad Soyad",
+          leadPhonePh: "Telefon",
+          leadEmailPh: "E-posta",
+          leadSave: "Bilgilerimi kaydet",
+          leadSaved: "Kaydettik, teşekkürler! Satış ekibimiz size ulaşabilir.",
+          leadEmpty: "En az bir alan doldurun (ad, telefon veya e-posta).",
+          leadError: "Kaydedilemedi. Tekrar deneyin.",
+          leadGateAiOffer:
+            "İsterseniz iletişim bilgilerinizi bırakın; uygun gördüğümüzde yetkili temsilci sizi arayabilir.",
+          leadGateBtn: "İletişim formunu göster",
+          leadHideBtn: "Formu kapat",
+          leadGateAfterSave:
+            "Kaydınızı aldık. Temsilcimiz en kısa sürede size dönecektir. Gerekirse formu yeniden açabilirsiniz.",
+        },
+        en: {
+          title: "Sales Assistant",
+          subtitle: "POS · We’re here to help",
+          chat: "Chat",
+          openChat: "Open chat",
+          closeChat: "Close chat",
+          thinking: "Thinking…",
+          messageLabel: "Message",
+          placeholder: "Type your message…",
+          send: "Send",
+          noReply: "(No reply)",
+          networkError:
+            "Could not connect. Is the API running? Try: http://127.0.0.1:8000/ui/",
+          serverError: "Could not reach the server.",
+          leadTitle: "Your contact details (optional)",
+          leadNamePh: "Name",
+          leadPhonePh: "Phone",
+          leadEmailPh: "Email",
+          leadSave: "Save my details",
+          leadSaved: "Saved. Thank you — our team can reach out.",
+          leadEmpty: "Fill in at least one field (name, phone, or email).",
+          leadError: "Could not save. Try again.",
+          leadGateAiOffer:
+            "You can leave your contact details if you’d like a sales representative to follow up.",
+          leadGateBtn: "Show contact form",
+          leadHideBtn: "Close form",
+          leadGateAfterSave:
+            "We’ve saved your details. A team member will reach out soon. You can reopen the form if needed.",
+        },
+        de: {
+          title: "Vertriebsassistent",
+          subtitle: "POS · Wir helfen Ihnen gerne",
+          chat: "Chat",
+          openChat: "Chat öffnen",
+          closeChat: "Chat schließen",
+          thinking: "Denkt nach…",
+          messageLabel: "Nachricht",
+          placeholder: "Nachricht eingeben…",
+          send: "Senden",
+          noReply: "(Keine Antwort)",
+          networkError:
+            "Verbindung fehlgeschlagen. Läuft die API? http://127.0.0.1:8000/ui/",
+          serverError: "Server nicht erreichbar.",
+        },
+        fr: {
+          title: "Assistant commercial",
+          subtitle: "POS · Nous sommes là pour vous aider",
+          chat: "Chat",
+          openChat: "Ouvrir le chat",
+          closeChat: "Fermer le chat",
+          thinking: "Réflexion…",
+          messageLabel: "Message",
+          placeholder: "Écrivez votre message…",
+          send: "Envoyer",
+          noReply: "(Pas de réponse)",
+          networkError:
+            "Connexion impossible. L’API tourne-t-elle ? http://127.0.0.1:8000/ui/",
+          serverError: "Serveur inaccessible.",
+        },
+        es: {
+          title: "Asistente de ventas",
+          subtitle: "POS · Estamos aquí para ayudarte",
+          chat: "Chat",
+          openChat: "Abrir chat",
+          closeChat: "Cerrar chat",
+          thinking: "Pensando…",
+          messageLabel: "Mensaje",
+          placeholder: "Escribe tu mensaje…",
+          send: "Enviar",
+          noReply: "(Sin respuesta)",
+          networkError:
+            "Sin conexión. ¿Está la API en marcha? http://127.0.0.1:8000/ui/",
+          serverError: "No se pudo contactar el servidor.",
+        },
+        it: {
+          title: "Assistente vendite",
+          subtitle: "POS · Siamo qui per aiutarti",
+          chat: "Chat",
+          openChat: "Apri chat",
+          closeChat: "Chiudi chat",
+          thinking: "Sto pensando…",
+          messageLabel: "Messaggio",
+          placeholder: "Scrivi il messaggio…",
+          send: "Invia",
+          noReply: "(Nessuna risposta)",
+          networkError:
+            "Connessione fallita. L’API è attiva? http://127.0.0.1:8000/ui/",
+          serverError: "Server non raggiungibile.",
+        },
+        nl: {
+          title: "Verkoopassistent",
+          subtitle: "POS · We helpen je graag",
+          chat: "Chat",
+          openChat: "Chat openen",
+          closeChat: "Chat sluiten",
+          thinking: "Even gedacht…",
+          messageLabel: "Bericht",
+          placeholder: "Typ je bericht…",
+          send: "Versturen",
+          noReply: "(Geen antwoord)",
+          networkError:
+            "Geen verbinding. Draait de API? http://127.0.0.1:8000/ui/",
+          serverError: "Server niet bereikbaar.",
+        },
+        pt: {
+          title: "Assistente de vendas",
+          subtitle: "POS · Estamos aqui para ajudar",
+          chat: "Chat",
+          openChat: "Abrir chat",
+          closeChat: "Fechar chat",
+          thinking: "Pensando…",
+          messageLabel: "Mensagem",
+          placeholder: "Digite sua mensagem…",
+          send: "Enviar",
+          noReply: "(Sem resposta)",
+          networkError:
+            "Falha na conexão. A API está rodando? http://127.0.0.1:8000/ui/",
+          serverError: "Servidor indisponível.",
+        },
+        ar: {
+          title: "مساعد المبيعات",
+          subtitle: "نقطة البيع · نحن هنا لمساعدتك",
+          chat: "دردشة",
+          openChat: "فتح الدردشة",
+          closeChat: "إغلاق الدردشة",
+          thinking: "جارٍ التفكير…",
+          messageLabel: "الرسالة",
+          placeholder: "اكتب رسالتك…",
+          send: "إرسال",
+          noReply: "(لا يوجد رد)",
+          networkError:
+            "تعذر الاتصال. هل يعمل الخادم؟ http://127.0.0.1:8000/ui/",
+          serverError: "تعذر الوصول إلى الخادم.",
+        },
+        ru: {
+          title: "Помощник по продажам",
+          subtitle: "POS · Мы здесь, чтобы помочь",
+          chat: "Чат",
+          openChat: "Открыть чат",
+          closeChat: "Закрыть чат",
+          thinking: "Думаю…",
+          messageLabel: "Сообщение",
+          placeholder: "Введите сообщение…",
+          send: "Отправить",
+          noReply: "(Нет ответа)",
+          networkError:
+            "Нет соединения. Запущен ли API? http://127.0.0.1:8000/ui/",
+          serverError: "Сервер недоступен.",
+        },
+      };
+
+      function resolveLocale() {
+        var list = navigator.languages && navigator.languages.length
+          ? navigator.languages
+          : [navigator.language || "en"];
+        var i;
+        for (i = 0; i < list.length; i++) {
+          var code = String(list[i] || "")
+            .split("-")[0]
+            .toLowerCase();
+          if (STRINGS[code]) return code;
+        }
+        return "en";
+      }
+
+      var locale = resolveLocale();
+      var L = STRINGS[locale] || STRINGS.en;
+
+      function txt(key) {
+        var v = L[key];
+        if (v !== undefined && v !== "") return v;
+        return STRINGS.en[key] || key;
+      }
+
+      var root = document.getElementById("sales-chat-widget");
+      var launcher = document.getElementById("chat-launcher");
+      var panel = document.getElementById("chat-panel");
+      var closeBtn = document.getElementById("chat-close");
+      var messagesEl = document.getElementById("chat-messages");
+      var loadingEl = document.getElementById("chat-loading");
+      var form = document.getElementById("chat-form");
+      var input = document.getElementById("chat-input");
+      var sendBtn = document.getElementById("chat-send");
+      var leadForm = document.getElementById("lead-form");
+      var leadName = document.getElementById("lead-name");
+      var leadPhone = document.getElementById("lead-phone");
+      var leadEmail = document.getElementById("lead-email");
+      var leadSave = document.getElementById("lead-save");
+      var leadStripTitle = document.getElementById("lead-strip-title");
+      var leadGate = document.getElementById("lead-gate");
+      var leadGateHint = document.getElementById("lead-gate-hint");
+      var leadGateBtn = document.getElementById("lead-gate-btn");
+      var leadHideBtn = document.getElementById("lead-hide-btn");
+
+      /** Sunucuya gönderilen önceki turlar (API ile aynı sırada; son mesaj burada değil). */
+      var chatHistory = [];
+
+      /** "hidden" | "offer" | "aftersave" — iletişim şeridinin metni ve görünürlüğü */
+      var leadGateState = "hidden";
+
+      function refreshLeadGateI18n() {
+        if (!leadGateHint) return;
+        if (leadGateState === "aftersave") {
+          leadGateHint.textContent = txt("leadGateAfterSave");
+        } else if (leadGateState === "offer") {
+          leadGateHint.textContent = txt("leadGateAiOffer");
+        }
+      }
+
+      /** API: show_contact_form — gerçek niyet/ciddiyet model tarafından tahmin edilir. */
+      function applyLeadFormVisibility(showContactForm) {
+        if (showContactForm) {
+          leadGateState = "offer";
+        } else {
+          leadGateState = "hidden";
+          if (leadForm) leadForm.hidden = true;
+        }
+        if (leadGate) leadGate.hidden = !showContactForm;
+        if (leadGateBtn) leadGateBtn.disabled = !showContactForm;
+        refreshLeadGateI18n();
+      }
+
+      function applyI18n() {
+        var dr = document.getElementById("doc-root");
+        if (dr) dr.setAttribute("lang", locale === "ar" ? "ar" : locale);
+
+        var titleEl = document.getElementById("chat-header-title");
+        var subEl = document.getElementById("chat-header-sub");
+        if (titleEl) titleEl.textContent = L.title;
+        if (subEl) subEl.textContent = L.subtitle;
+
+        var launchLabel = document.getElementById("chat-launcher-label");
+        if (launchLabel) launchLabel.textContent = L.chat;
+        if (launcher) launcher.setAttribute("aria-label", L.openChat);
+        if (closeBtn) closeBtn.setAttribute("aria-label", L.closeChat);
+
+        var think = document.getElementById("chat-thinking-text");
+        if (think) think.textContent = L.thinking;
+
+        var msgLab = document.getElementById("chat-message-label");
+        if (msgLab) msgLab.textContent = L.messageLabel;
+        if (input) input.placeholder = L.placeholder;
+        if (sendBtn) sendBtn.textContent = L.send;
+        if (leadStripTitle) leadStripTitle.textContent = txt("leadTitle");
+        if (leadName) leadName.placeholder = txt("leadNamePh");
+        if (leadPhone) leadPhone.placeholder = txt("leadPhonePh");
+        if (leadEmail) leadEmail.placeholder = txt("leadEmailPh");
+        if (leadSave) leadSave.textContent = txt("leadSave");
+        if (leadGateBtn) leadGateBtn.textContent = txt("leadGateBtn");
+        if (leadHideBtn) leadHideBtn.textContent = txt("leadHideBtn");
+        if (root) root.setAttribute("dir", locale === "ar" ? "rtl" : "ltr");
+        refreshLeadGateI18n();
+      }
+
+      try {
+        applyI18n();
+      } catch (e) {
+        console.error("applyI18n", e);
+      }
+
+      if (
+        !root ||
+        !launcher ||
+        !panel ||
+        !closeBtn ||
+        !messagesEl ||
+        !loadingEl ||
+        !form ||
+        !input ||
+        !sendBtn ||
+        !leadForm ||
+        !leadName ||
+        !leadPhone ||
+        !leadEmail ||
+        !leadSave ||
+        !leadGate ||
+        !leadGateHint ||
+        !leadGateBtn ||
+        !leadHideBtn
+      ) {
+        console.error("Chat widget: gerekli DOM öğeleri bulunamadı.");
+        return;
+      }
+
+      function escapeHtml(text) {
+        var div = document.createElement("div");
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      function appendBubble(role, text) {
+        var div = document.createElement("div");
+        div.className = "msg " + role;
+        div.innerHTML = escapeHtml(text);
+        messagesEl.appendChild(div);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      }
+
+      function appendError(text) {
+        var div = document.createElement("div");
+        div.className = "msg error";
+        div.textContent = text;
+        messagesEl.appendChild(div);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      }
+
+      function setLoading(on) {
+        loadingEl.classList.toggle("active", on);
+        loadingEl.setAttribute("aria-hidden", on ? "false" : "true");
+        input.disabled = on;
+        sendBtn.disabled = on;
+        if (on) {
+          messagesEl.scrollTop = messagesEl.scrollHeight;
+        }
+      }
+
+      function openPanel() {
+        panel.hidden = false;
+        launcher.hidden = true;
+        input.focus();
+      }
+
+      function closePanel() {
+        panel.hidden = true;
+        launcher.hidden = false;
+      }
+
+      launcher.addEventListener("click", openPanel);
+      closeBtn.addEventListener("click", closePanel);
+
+      /* /ui/ üzerinden açıldıysa paneli otomatik göster (yenilemede kullanıcı “boş sayfa” sanmasın) */
+      if (window.location.pathname.indexOf("/ui") !== -1) {
+        openPanel();
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var raw = input.value.trim();
+        if (!raw) return;
+
+        appendBubble("user", raw);
+        input.value = "";
+        input.style.height = "auto";
+        setLoading(true);
+
+        fetch(CHAT_URL, {
+          method: "POST",
+          mode: "cors",
+          credentials: "omit",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            message: raw,
+            history: chatHistory,
+          }),
+        })
+          .then(function (res) {
+            return res.json().then(function (data) {
+              if (!res.ok) {
+                var detail = data.detail;
+                var msg =
+                  typeof detail === "string"
+                    ? detail
+                    : res.status + " " + res.statusText;
+                throw new Error(msg);
+              }
+              return data;
+            });
+          })
+          .then(function (data) {
+            var reply = data && data.reply != null ? String(data.reply) : "";
+            appendBubble("ai", reply || L.noReply);
+            chatHistory.push({ role: "user", content: raw });
+            chatHistory.push({ role: "assistant", content: reply || L.noReply });
+            while (chatHistory.length > 40) {
+              chatHistory.shift();
+            }
+            var showForm =
+              data && data.show_contact_form === true;
+            applyLeadFormVisibility(showForm);
+          })
+          .catch(function (err) {
+            var m = err && err.message ? String(err.message) : "";
+            var isNetwork =
+              m === "Failed to fetch" ||
+              m === "NetworkError when attempting to fetch resource." ||
+              (err && err.name === "TypeError");
+            if (isNetwork) {
+              appendError(L.networkError);
+            } else {
+              appendError(m || L.serverError);
+            }
+          })
+          .finally(function () {
+            setLoading(false);
+          });
+      });
+
+      input.addEventListener("input", function () {
+        input.style.height = "auto";
+        input.style.height = Math.min(input.scrollHeight, 120) + "px";
+      });
+
+      input.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          form.requestSubmit();
+        }
+      });
+
+      leadGateBtn.addEventListener("click", function () {
+        if (leadGateBtn.disabled) return;
+        leadForm.hidden = false;
+        leadGate.hidden = true;
+      });
+
+      leadHideBtn.addEventListener("click", function () {
+        leadForm.hidden = true;
+        leadGateState = "offer";
+        if (leadGate) leadGate.hidden = false;
+        if (leadGateBtn) leadGateBtn.disabled = false;
+        refreshLeadGateI18n();
+      });
+
+      leadForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var name = leadName.value.trim();
+        var phone = leadPhone.value.trim();
+        var email = leadEmail.value.trim();
+        if (!name && !phone && !email) {
+          appendError(txt("leadEmpty"));
+          return;
+        }
+        leadSave.disabled = true;
+        fetch(LEAD_URL, {
+          method: "POST",
+          mode: "cors",
+          credentials: "omit",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: name || null,
+            phone: phone || null,
+            email: email || null,
+            message: null,
+          }),
+        })
+          .then(function (res) {
+            return res.json().then(function (data) {
+              if (!res.ok) {
+                var d = data.detail;
+                throw new Error(
+                  typeof d === "string" ? d : res.status + " " + res.statusText
+                );
+              }
+              return data;
+            });
+          })
+          .then(function () {
+            appendBubble("ai", txt("leadSaved"));
+            leadForm.reset();
+            leadForm.hidden = true;
+            leadGateState = "aftersave";
+            if (leadGate) leadGate.hidden = false;
+            if (leadGateBtn) leadGateBtn.disabled = false;
+            refreshLeadGateI18n();
+          })
+          .catch(function () {
+            appendError(txt("leadError"));
+          })
+          .finally(function () {
+            leadSave.disabled = false;
+          });
+      });
+    })();
+  </script>
+</body>
+</html>

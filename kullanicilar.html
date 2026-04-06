@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex,follow">
+  <title>Kullanıcı Yönetimi | Dinamik POS Yönetim</title>
+  <link rel="canonical" href="http://wwww.dinamikpos.com.tr.tr/kullanicilar.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/theme-toggle.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('dinamik_theme')||'light');</script>
+  <script>document.documentElement.setAttribute('lang',localStorage.getItem('dinamik_lang')||'tr');</script>
+  <script src="js/admin-auth.js" defer></script>
+  <style>
+    .user-table{width:100%;border-collapse:collapse}.user-table th,.user-table td{padding:var(--space-3) var(--space-4);text-align:left;border-bottom:1px solid var(--color-border)}.user-table th{font-weight:600;color:var(--color-text-secondary)}.user-role-badge{display:inline-block;padding:2px 8px;border-radius:var(--radius-full);font-size:var(--text-xs);font-weight:500}.user-role-admin{background:var(--color-accent-muted);color:var(--color-accent)}.user-role-yonetici{background:#e0f2fe;color:#0369a1}.user-role-kasiyer{background:#fef3c7;color:#b45309}.user-role-garson{background:#d1fae5;color:#047857}.user-role-musteri{background:#e0e7ff;color:#4338ca}.user-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;padding:2rem}.user-modal.visible{display:flex}.user-modal .card{max-width:480px;width:100%;max-height:90vh;overflow-y:auto}.perm-list{display:flex;flex-direction:column;gap:var(--space-2)}.perm-item{display:flex;align-items:center;gap:var(--space-3)}.perm-item input{margin:0}
+  </style>
+</head>
+<body class="admin-body">
+  <a href="#main-content" class="skip-link" data-i18n="skip_link">İçeriğe atla</a>
+  <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-expanded="false" aria-label="Menüyü aç/kapat"><span class="sidebar-toggle-bar"></span><span class="sidebar-toggle-bar"></span><span class="sidebar-toggle-bar"></span></button>
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+  <aside class="sidebar" id="sidebar" role="navigation">
+    <div class="sidebar-header"><a href="index.html" class="sidebar-logo"><img src="images/logo.png" alt="Dinamik POS" class="sidebar-logo-img" width="180" height="45" loading="lazy" decoding="async"></a></div>
+    <nav class="sidebar-nav">
+      <a href="admin.html" class="sidebar-link"><span class="sidebar-icon">📊</span> Dashboard</a>
+      <a href="site-rehberi.html" class="sidebar-link"><span class="sidebar-icon">🗺️</span> Site rehberi</a>
+      <a href="raporlar.html" class="sidebar-link"><span class="sidebar-icon">📈</span> Raporlar</a>
+      <a href="crm.html" class="sidebar-link"><span class="sidebar-icon">👥</span> CRM</a>
+      <a href="urunler-yonetim.html" class="sidebar-link"><span class="sidebar-icon">📦</span> Ürünler</a>
+      <a href="siparisler.html" class="sidebar-link"><span class="sidebar-icon">📋</span> Siparişler</a>
+      <a href="kampanyalar.html" class="sidebar-link"><span class="sidebar-icon">📢</span> Kampanyalar</a>
+      <a href="ayarlar.html" class="sidebar-link"><span class="sidebar-icon">⚙️</span> Ayarlar</a>
+      <a href="ortaklar.html" class="sidebar-link"><span class="sidebar-icon">🤝</span> Çözüm Ortakları</a>
+      <a href="kullanicilar.html" class="sidebar-link active"><span class="sidebar-icon">👤</span> Kullanıcılar</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="theme-toggle sidebar-theme-toggle" role="group" aria-label="Tema seçimi">
+        <button type="button" data-theme-toggle="dark" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+        <button type="button" data-theme-toggle="light" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
+      </div>
+      <a href="index.html" class="sidebar-link" data-i18n="admin_back">← Siteye Dön</a>
+      <button type="button" class="sidebar-link" id="admin-logout-btn" data-i18n="admin_logout" style="background:none;border:none;cursor:pointer;width:100%;text-align:left;font:inherit;color:inherit;">Çıkış</button>
+    </div>
+  </aside>
+  <div class="admin-main">
+    <header class="admin-header">
+      <h1 class="admin-title">Kullanıcı Yönetimi</h1>
+      <div class="admin-header-actions">
+        <div id="lang-selector"></div>
+        <span class="admin-user"></span>
+        <button type="button" class="btn btn-primary btn-sm" id="btn-add-user">+ Yeni Kullanıcı</button>
+      </div>
+    </header>
+    <main id="main-content" class="admin-content">
+      <section class="widget-section">
+        <div class="card">
+          <p class="stat-meta" style="margin-bottom: var(--space-4);">Admin dışında panel kullanıcıları ekleyin. Her kullanıcıya rol ve yetki atayın.</p>
+          <div class="table-responsive">
+            <table class="user-table">
+              <thead>
+                <tr>
+                  <th>Ad Soyad</th>
+                  <th>E-posta</th>
+                  <th>Rol</th>
+                  <th>Yetkiler</th>
+                  <th>Durum</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="users-tbody"></tbody>
+            </table>
+          </div>
+          <p id="users-empty" class="stat-meta" style="display:none; margin-top: var(--space-4);">Henüz kullanıcı eklenmemiş. Admin paneli şifre ile giriş yapılır.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="user-modal" id="user-modal" role="dialog" aria-labelledby="user-modal-title">
+    <div class="card">
+      <h2 id="user-modal-title">Yeni Kullanıcı</h2>
+      <form id="user-form">
+        <input type="hidden" id="user-id">
+        <div class="form-group">
+          <label for="user-name">Ad Soyad *</label>
+          <input type="text" id="user-name" class="input" required placeholder="Ad Soyad">
+        </div>
+        <div class="form-group">
+          <label for="user-email">E-posta *</label>
+          <input type="email" id="user-email" class="input" required placeholder="kullanici@email.com">
+        </div>
+        <div class="form-group">
+          <label for="user-password">Şifre</label>
+          <input type="password" id="user-password" class="input" placeholder="Boş bırakılırsa değişmez" autocomplete="new-password">
+          <small class="form-hint">Yeni kullanıcıda zorunlu, düzenlemede boş bırakılabilir</small>
+        </div>
+        <div class="form-group">
+          <label for="user-role">Rol *</label>
+          <select id="user-role" class="input" required>
+            <option value="yonetici">Yönetici</option>
+            <option value="kasiyer">Kasiyer</option>
+            <option value="garson">Garson</option>
+            <option value="musteri">Müşteri</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Yetkiler</label>
+          <div class="perm-list" id="user-perms">
+            <label class="perm-item"><input type="checkbox" name="perm" value="dashboard"> Dashboard</label>
+            <label class="perm-item"><input type="checkbox" name="perm" value="raporlar"> Raporlar</label>
+            <label class="perm-item"><input type="checkbox" name="perm" value="crm"> CRM</label>
+            <label class="perm-item"><input type="checkbox" name="perm" value="urunler"> Ürün Yönetimi</label>
+            <label class="perm-item"><input type="checkbox" name="perm" value="siparisler"> Siparişler</label>
+            <label class="perm-item"><input type="checkbox" name="perm" value="kampanyalar"> Kampanyalar</label>
+            <label class="perm-item"><input type="checkbox" name="perm" value="ortaklar"> Çözüm Ortakları</label>
+            <label class="perm-item"><input type="checkbox" name="perm" value="ayarlar"> Ayarlar</label>
+            <label class="perm-item"><input type="checkbox" name="perm" value="kullanicilar"> Kullanıcı Yönetimi</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="perm-item"><input type="checkbox" id="user-active" checked> Aktif</label>
+        </div>
+        <div style="display:flex; gap: var(--space-3); margin-top: var(--space-6);">
+          <button type="submit" class="btn btn-primary">Kaydet</button>
+          <button type="button" class="btn btn-secondary" id="user-modal-close">İptal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="js/config.js" defer></script>
+  <script src="js/translations.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/theme.js" defer></script>
+  <script src="js/admin-sidebar.js" defer></script>
+  <script src="js/admin-notifications.js" defer></script>
+  <script src="js/users-admin.js" defer></script>
+</body>
+</html>

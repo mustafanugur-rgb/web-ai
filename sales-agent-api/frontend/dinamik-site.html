@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DinamikPOS — POS & Yazarkasa Çözümleri</title>
+  <link rel="stylesheet" href="/ui/static/css/dinamik-chat-widget.css" />
+  <style>
+    /* Sayfa iskeleti — widget’tan bağımsız, sade pazarlama alanı */
+    :root {
+      --page-bg: #fafafa;
+      --text: #0a0a0a;
+      --muted: #737373;
+      --line: #e5e5e5;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      color: var(--text);
+      background: var(--page-bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    .site-header {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.125rem;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .hero {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 72px 24px 96px;
+      text-align: center;
+    }
+    .hero h1 {
+      margin: 0 0 16px;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+    .hero p.lead {
+      margin: 0 auto 40px;
+      max-width: 560px;
+      font-size: 1.0625rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 22px;
+      border-radius: 12px;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      font-family: inherit;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .btn-secondary {
+      background: #fff;
+      color: var(--text);
+      border-color: #d4d4d4;
+    }
+    .btn-secondary:hover {
+      background: #f5f5f5;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border-color: #d4d4d4;
+    }
+    .btn-ghost:hover {
+      background: #f5f5f5;
+    }
+    .btn-primary {
+      background: #0a0a0a;
+      color: #fff;
+      border-color: #0a0a0a;
+    }
+    .btn-primary:hover {
+      background: #262626;
+    }
+    .site-footer {
+      padding: 32px 24px;
+      text-align: center;
+      font-size: 0.8125rem;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      background: #fff;
+    }
+    @media (max-width: 520px) {
+      .hero {
+        padding-top: 48px;
+        padding-bottom: 64px;
+      }
+      .hero-ctas {
+        flex-direction: column;
+        width: 100%;
+      }
+      .hero-ctas .btn {
+        width: 100%;
+        max-width: 320px;
+      }
+    }
+
+    /* Paketler / fiyatlandırma — sade kartlar + alt dönüşüm şeridi */
+    .pricing-section {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px 56px;
+    }
+    .pricing-section h2 {
+      margin: 0 0 8px;
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      text-align: center;
+    }
+    .pricing-lead {
+      margin: 0 auto 36px;
+      max-width: 520px;
+      text-align: center;
+      font-size: 0.9375rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .pricing-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      min-height: 200px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .pricing-card:hover {
+      border-color: #d4d4d4;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    }
+    .pricing-card h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .pricing-card .tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+    .pricing-card ul {
+      margin: 0;
+      padding: 0 0 0 1.1em;
+      font-size: 0.875rem;
+      color: #525252;
+      line-height: 1.55;
+      flex: 1;
+    }
+    .pricing-card li {
+      margin-bottom: 6px;
+    }
+    .pricing-conversion {
+      margin-top: 4px;
+      padding: 20px 22px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    }
+    .pricing-conversion-text {
+      margin: 0 0 14px;
+      font-size: 0.9375rem;
+      color: var(--text);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1.45;
+    }
+    .btn-pricing-chat {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 20px;
+      border-radius: 12px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      border: 1px solid #0a0a0a;
+      background: #0a0a0a;
+      color: #fff;
+      transition: background 0.15s ease;
+    }
+    .btn-pricing-chat:hover {
+      background: #262626;
+    }
+    .quote-section {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px 64px;
+    }
+    .quote-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .quote-conversion {
+      margin-bottom: 16px;
+      padding: 18px 20px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+      text-align: center;
+    }
+    .quote-conversion h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .quote-conversion p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .quote-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+      padding: 22px;
+    }
+    .quote-card h2 {
+      margin: 0 0 8px;
+      font-size: 1.125rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .quote-card p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 0.925rem;
+      line-height: 1.5;
+    }
+    .quote-form {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .quote-form .full {
+      grid-column: 1 / -1;
+    }
+    .quote-form input,
+    .quote-form select,
+    .quote-form textarea {
+      width: 100%;
+      border: 1px solid #e5e5e5;
+      background: #fafafa;
+      border-radius: 10px;
+      padding: 10px 11px;
+      font: inherit;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .quote-form input:focus,
+    .quote-form select:focus,
+    .quote-form textarea:focus {
+      border-color: #a3a3a3;
+      background: #fff;
+    }
+    .quote-form textarea {
+      min-height: 96px;
+      resize: vertical;
+    }
+    .quote-submit {
+      margin-top: 4px;
+      border: 1px solid #0a0a0a;
+      border-radius: 10px;
+      background: #0a0a0a;
+      color: #fff;
+      padding: 11px 16px;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .quote-submit:hover {
+      background: #262626;
+    }
+    @media (max-width: 900px) {
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .quote-form {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="/ui/site/">DinamikPOS</a>
+  </header>
+
+  <main class="hero">
+    <h1>İşletmeniz için doğru POS ve yazarkasa altyapısı</h1>
+    <p class="lead">
+      Restoran, perakende ve çok şubeli işletmeler için güvenilir satış noktası çözümleri.
+      Satış asistanımız birkaç soruda ihtiyacınızı netleştirir.
+    </p>
+    <div class="hero-ctas">
+      <a class="btn btn-secondary" href="#fiyatlandirma" id="hero-cta-products">Ürünleri incele</a>
+      <a class="btn btn-ghost" href="#iletisim" id="hero-cta-contact">İletişim</a>
+      <!-- Hero CTA #3: global widget ile aynı sohbet -->
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="dinamikpos-hero-cta-chat"
+      >
+        İşletmene Uygun Sistemi Öğren
+      </button>
+    </div>
+  </main>
+
+  <section id="fiyatlandirma" class="pricing-section" aria-labelledby="pricing-heading">
+    <h2 id="pricing-heading">Paketler</h2>
+    <p class="pricing-lead">
+      İhtiyacınıza göre ölçeklenebilir lisans ve donanım setleri. Karşılaştırın; emin değilseniz asistan yönlendirsin.
+    </p>
+    <div class="pricing-grid">
+      <article class="pricing-card">
+        <div class="tag">Giriş</div>
+        <h3>Başlangıç</h3>
+        <ul>
+          <li>Tek şube, temel POS</li>
+          <li>Yazarkasa entegrasyonu</li>
+          <li>E-posta destek</li>
+        </ul>
+      </article>
+      <article class="pricing-card">
+        <div class="tag">Çok satılan</div>
+        <h3>Profesyonel</h3>
+        <ul>
+          <li>Çok şube veya yoğun kullanım</li>
+          <li>Terminal + mutfak ekranı</li>
+          <li>Öncelikli destek</li>
+        </ul>
+      </article>
+      <article class="pricing-card">
+        <div class="tag">Kurumsal</div>
+        <h3>Kurumsal</h3>
+        <ul>
+          <li>Özel entegrasyonlar</li>
+          <li>SLA ve sahada kurulum</li>
+          <li>Özel hesap yöneticisi</li>
+        </ul>
+      </article>
+    </div>
+    <!-- Tek global widget: dinamik-chat-widget.js içinde dinamikpos-pricing-cta-chat -->
+    <div class="pricing-conversion">
+      <p class="pricing-conversion-text">
+        Hangi paketin size uygun olduğunu bilmiyor musunuz?
+      </p>
+      <button
+        type="button"
+        class="btn-pricing-chat"
+        id="dinamikpos-pricing-cta-chat"
+      >
+        AI Uzmanına Sor
+      </button>
+    </div>
+  </section>
+
+  <section id="iletisim" class="quote-section" aria-labelledby="quote-heading">
+    <div class="quote-wrap">
+      <!-- Formdan önce hızlı dönüşüm: aynı global chat instance -->
+      <div class="quote-conversion">
+        <h3>Form doldurmadan hızlı teklif alın</h3>
+        <p>İşletmenize uygun sistemi birkaç soruda belirleyelim.</p>
+        <button type="button" class="btn-pricing-chat" id="dinamikpos-quote-cta-chat">
+          AI ile Fiyat Öğren
+        </button>
+      </div>
+
+      <div class="quote-card">
+        <h2 id="quote-heading">Teklif Formu</h2>
+        <p>Alternatif olarak aşağıdaki formu doldurun; satış ekibimiz kısa sürede dönüş yapsın.</p>
+        <form class="quote-form" action="#" method="post">
+          <input type="text" name="name" placeholder="Ad Soyad" autocomplete="name" />
+          <input type="tel" name="phone" placeholder="Telefon" autocomplete="tel" />
+          <input type="email" name="email" placeholder="E-posta" autocomplete="email" />
+          <select name="segment">
+            <option value="">İşletme türü seçin</option>
+            <option>Restoran</option>
+            <option>Kafe</option>
+            <option>Market / Perakende</option>
+            <option>Diğer</option>
+          </select>
+          <textarea class="full" name="note" placeholder="Kısa not: Şube, terminal, yazarkasa ihtiyacı..."></textarea>
+          <button type="submit" class="quote-submit full">Teklif İste</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    © DinamikPOS · Satış asistanı bu sayfada sağ altta
+  </footer>
+
+  <!-- Tek chat instance: #sales-chat-widget -->
+  <div id="sales-chat-widget" aria-live="polite">
+    <button type="button" class="launcher" id="chat-launcher">
+      <span class="launcher-ico" aria-hidden="true">◆</span>
+      <span id="chat-launcher-label">Sohbet</span>
+    </button>
+
+    <div class="panel" id="chat-panel" hidden>
+      <div class="header">
+        <div>
+          <div id="chat-header-title">Satış Asistanı</div>
+          <span class="sub" id="chat-header-sub">POS · Yazarkasa · 7/24 Destek</span>
+        </div>
+        <button type="button" class="btn-icon" id="chat-close" aria-label="Kapat">×</button>
+      </div>
+
+      <div class="messages" id="chat-messages" role="log"></div>
+
+      <div class="loading-row" id="chat-loading" aria-hidden="true">
+        <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
+        <span id="chat-thinking-text">…</span>
+      </div>
+
+      <div class="lead-gate" id="lead-gate" hidden>
+        <p class="lead-gate-hint" id="lead-gate-hint"></p>
+        <button type="button" class="btn-lead-gate" id="lead-gate-btn"></button>
+      </div>
+
+      <form class="lead-strip" id="lead-form" autocomplete="on" hidden>
+        <div class="lead-strip-title" id="lead-strip-title">İletişim</div>
+        <div class="lead-fields">
+          <input type="text" id="lead-name" name="name" maxlength="500" />
+          <input type="tel" id="lead-phone" name="phone" maxlength="50" />
+          <input type="email" id="lead-email" name="email" maxlength="320" />
+        </div>
+        <button type="submit" class="btn-lead" id="lead-save">Kaydet</button>
+        <button type="button" class="btn-lead-gate" id="lead-hide-btn" style="margin-top: 8px"></button>
+      </form>
+
+      <form class="composer" id="chat-form">
+        <label for="chat-input" class="visually-hidden" id="chat-message-label">Mesaj</label>
+        <textarea id="chat-input" placeholder="" rows="1" autocomplete="off"></textarea>
+        <button type="submit" class="btn-send" id="chat-send">Gönder</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/ui/static/js/dinamik-chat-widget.js" defer></script>
+</body>
+</html>

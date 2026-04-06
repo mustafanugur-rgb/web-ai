@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Dinamik POS: cafe ve restoranlar için POS yazılımı, donanım mağazası, PayTR ile güvenli ödeme, demo ve teklif talepleri.">
+  <meta name="robots" content="index,follow">
+  <meta property="og:title" content="Dinamik POS | Restoran ve Kafe POS Sistemi">
+  <meta property="og:description" content="Premium tasarım, ürün vitrini, ROI hesaplayıcı ve AI satış asistanı tek sayfada.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://wwww.dinamikpos.com.tr.tr/">
+  <meta property="og:image" content="http://wwww.dinamikpos.com.tr.tr/images/logo.png">
+  <title>Dinamik POS | Restoran ve Kafe POS Sistemi</title>
+  <link rel="canonical" href="http://wwww.dinamikpos.com.tr.tr/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/theme-toggle.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/premium-landing.css">
+  <link rel="stylesheet" href="css/dinamik-chat-widget.css">
+  <script>document.documentElement.setAttribute('data-theme', 'dark');</script>
+  <script>document.documentElement.setAttribute('lang', localStorage.getItem('dinamik_lang') || 'tr');</script>
+</head>
+<body class="premium-page has-sales-chat-widget">
+  <header class="header" role="banner">
+    <nav class="nav" aria-label="Ana menü">
+      <div class="nav-left">
+        <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Dinamik POS" class="nav-logo-img" width="180" height="45"></a>
+        <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu" data-i18n-aria-label="menu_toggle">
+          <span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>
+        </button>
+      </div>
+      <div class="nav-menu" id="nav-menu">
+        <ul class="nav-links">
+          <li><a href="#cozumler" data-i18n="home_nav_solutions">Çözümler</a></li>
+          <li><a href="#neden-dinamik" data-i18n="home_nav_why">Neden Biz</a></li>
+          <li><a href="#calculator" data-i18n="home_nav_loss">Kayıp Hesapla</a></li>
+          <li><a href="#paketler" data-i18n="home_nav_packages">Paketler</a></li>
+          <li><a href="#ai-sales-assistant" data-i18n="home_nav_ai">AI Asistan</a></li>
+          <li><a href="urunler.html" data-i18n="nav_products">Ürünler</a></li>
+        </ul>
+        <div class="nav-cta">
+          <div id="lang-selector"></div>
+          <a href="giris.html" class="btn btn-secondary" data-i18n="nav_login">Giriş</a>
+          <a data-whatsapp class="btn btn-whatsapp" data-i18n-wa-msg="home_wa_msg_hero" target="_blank" rel="noopener noreferrer" data-i18n="home_support_24">7/24 Destek</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="premium-wrap page-wrapper">
+    <section class="premium-hero">
+      <div class="premium-hero-bg" aria-hidden="true">
+        <img src="images/illustrations/hero-mesh.svg" alt="" width="900" height="420" decoding="async" fetchpriority="high">
+      </div>
+      <div class="premium-hero-col">
+        <h1 class="premium-title" data-i18n="home_hero_title">Garson hatalarını sıfırlayan, işletmeni daha karlı hale getiren POS sistemi</h1>
+        <p class="premium-subtitle" data-i18n="home_hero_subtitle">POS yazılımı, donanım ve profesyonel destek — cafe ve restoranlar için tek adres. PayTR ile güvenli ödeme; Türkiye geneline hızlı kargo.</p>
+        <div class="premium-hero-buttons">
+          <a data-whatsapp class="btn premium-btn-glow" data-i18n-wa-msg="home_wa_msg_hero" target="_blank" rel="noopener noreferrer" data-i18n="home_hero_wa">WhatsApp'tan Hemen Teklif Al</a>
+          <a href="#demo" class="btn premium-btn-warm" data-i18n="home_hero_demo">Ücretsiz Demo Talep Et</a>
+        </div>
+      </div>
+      <div class="premium-device premium-device--hero" aria-hidden="true">
+        <div class="premium-device-glow"></div>
+        <div class="premium-device-inner">
+          <div class="premium-screen">
+            <div class="premium-screen-chrome">
+              <span class="premium-screen-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+              <strong class="premium-screen-title" data-i18n="home_mock_title">Canlı Operasyon</strong>
+              <span class="premium-screen-live" data-i18n="home_mock_live">● Canlı</span>
+            </div>
+            <div class="premium-screen-metrics">
+              <span class="premium-metric" data-i18n="home_metric_1">Bugün · 142 sipariş</span>
+              <span class="premium-metric premium-metric--accent" data-i18n="home_metric_2">Ciro · ₺24.8k</span>
+              <span class="premium-metric" data-i18n="home_metric_3">Hata · %0.2</span>
+            </div>
+            <div class="premium-screen-chart">
+              <div class="premium-screen-spark" aria-hidden="true"></div>
+              <div class="premium-screen-bars">
+                <span style="--h:58"></span><span style="--h:76"></span><span style="--h:44"></span><span style="--h:66"></span><span style="--h:52"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <a href="urunler.html" class="hero-products-banner" id="hero-products-banner" data-i18n-aria-label="home_banner_aria">
+      <span class="hero-products-banner-label" data-i18n="home_banner_label">Mağazada satılıyor</span>
+      <div class="hero-products-banner-items" id="hero-products-banner-items"></div>
+      <span class="hero-products-banner-cta" data-i18n="home_banner_cta">Tümünü Gör</span>
+    </a>
+
+    <section class="premium-section" id="cozumler">
+      <h2 class="premium-heading" data-i18n="home_pain_heading">Bu sorunları yaşıyorsan yalnız değilsin</h2>
+      <div class="premium-grid-4">
+        <article class="premium-chip" data-i18n="home_pain_1">Sipariş karışıklığı ve iptal maliyeti</article>
+        <article class="premium-chip" data-i18n="home_pain_2">Kasa kapatmada tutarsızlık</article>
+        <article class="premium-chip" data-i18n="home_pain_3">Stokta sürpriz eksikler</article>
+        <article class="premium-chip" data-i18n="home_pain_4">Şube performansını görememe</article>
+      </div>
+    </section>
+
+    <section class="premium-section" id="neden-dinamik">
+      <h2 class="premium-heading" data-i18n="problem_title">Neden Dinamik POS?</h2>
+      <p class="premium-lead" data-i18n="home_why_lead">Cafe ve restoranlar için yazılım ve ekipman alırken güvenilir adres: geniş ürün yelpazesi, güvenli ödeme ve sektörü bilen destek.</p>
+      <div class="premium-value-cards">
+        <article class="premium-value-card">
+          <div class="premium-value-card-visual">
+            <img src="images/illustrations/val-catalog.svg" alt="" width="88" height="88" loading="lazy" decoding="async">
+          </div>
+          <h3 data-i18n="problem_wide">Geniş ürün yelpazesi</h3>
+          <p data-i18n="problem_wide_desc">POS sistemleri, yazarkasalar, barkod okuyucular ve yazılım lisansları. Tek adresten ihtiyacınız olan her şey.</p>
+        </article>
+        <article class="premium-value-card">
+          <div class="premium-value-card-visual">
+            <img src="images/illustrations/val-pay.svg" alt="" width="88" height="88" loading="lazy" decoding="async">
+          </div>
+          <h3 data-i18n="problem_secure">Güvenli ödeme</h3>
+          <p data-i18n="problem_secure_desc">PayTR altyapısı ile güvenli kredi kartı ile ödeme. Taksit seçenekleri, hızlı onay.</p>
+        </article>
+        <article class="premium-value-card">
+          <div class="premium-value-card-visual">
+            <img src="images/illustrations/val-support.svg" alt="" width="88" height="88" loading="lazy" decoding="async">
+          </div>
+          <h3 data-i18n="problem_support">Profesyonel destek</h3>
+          <p data-i18n="problem_support_desc">Kurulum ve kullanım desteği. Sektörü bilen ekip, 7/24 Türkçe yardım.</p>
+        </article>
+        <article class="premium-value-card">
+          <div class="premium-value-card-visual">
+            <img src="images/illustrations/val-ship.svg" alt="" width="88" height="88" loading="lazy" decoding="async">
+          </div>
+          <h3 data-i18n="problem_fast">Hızlı kargo</h3>
+          <p data-i18n="problem_fast_desc">Türkiye geneline hızlı teslimat. Siparişiniz güvende, takip edilebilir kargo.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="calculator" class="premium-ai">
+      <h2 class="premium-heading" data-i18n="home_calc_title">Aylık Operasyon Kaybını Hesapla</h2>
+      <div class="calculator-card">
+        <div class="calculator-form">
+          <div class="calc-field">
+            <label for="daily-customers" data-i18n="home_calc_daily">Günlük müşteri sayısı</label>
+            <input id="daily-customers" type="range" min="20" max="700" step="10" value="180">
+          </div>
+          <div class="calc-field">
+            <label for="avg-ticket" data-i18n="home_calc_ticket">Ortalama adisyon (TL)</label>
+            <input id="avg-ticket" type="range" min="50" max="1000" step="10" value="280">
+          </div>
+          <div class="calc-field">
+            <label for="loss-percent"><span data-i18n="home_calc_loss_prefix">Operasyonel kayıp oranı:</span> <strong id="loss-display">12%</strong></label>
+            <input id="loss-percent" type="range" min="1" max="30" step="1" value="12">
+          </div>
+        </div>
+        <div class="calculator-result">
+          <div class="calc-result-label" data-i18n="home_calc_result_label">Tahmini aylık kayıp</div>
+          <div class="calc-result-value" id="monthly-loss">₺0</div>
+          <p class="calc-result-save" data-i18n="home_calc_result_save">Dinamik POS ile bu kaybın büyük bölümünü azaltabilirsiniz.</p>
+          <a href="#ai-sales-assistant" class="btn btn-primary" data-i18n="home_calc_cta">AI Asistan ile Paketi Gör</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="premium-section premium-section--samba-global" id="sambapos-kuresel">
+      <h2 class="premium-heading" data-i18n="samba_slogan">Küresel olarak kanıtlanmış güç</h2>
+      <p class="premium-lead" data-i18n="samba_slogan_desc">Dünya çapında yüz binlerce restoran SambaPOS ekosistemini kullanıyor.</p>
+      <div class="premium-samba-stats" role="group" data-i18n-aria-label="home_samba_stats_aria">
+        <div class="premium-samba-stat">
+          <div class="premium-samba-stat-num">23</div>
+          <div class="premium-samba-stat-label" data-i18n="samba_stat_lang">Dil</div>
+        </div>
+        <div class="premium-samba-stat">
+          <div class="premium-samba-stat-num">123</div>
+          <div class="premium-samba-stat-label" data-i18n="samba_stat_country">Ülke</div>
+        </div>
+        <div class="premium-samba-stat">
+          <div class="premium-samba-stat-num">164.717+</div>
+          <div class="premium-samba-stat-label" data-i18n="samba_stat_restaurant">Restoran</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="premium-ai premium-samba-upsell" id="sambapos-buyume" aria-labelledby="sambapos-buyume-heading">
+      <p class="premium-samba-badge" data-i18n="samba_badge">SambaPOS kullanıcıları için</p>
+      <h2 id="sambapos-buyume-heading" class="premium-heading" data-i18n="samba_title">Zaten SambaPOS kullanıyorsanız, büyüme araçlarını açın</h2>
+      <p class="premium-lead premium-lead--tight" data-i18n="samba_subtitle">Mevcut kurulumunuzu koruyun; CRM, WhatsApp pazarlama ve müşteri sadakati modülleriyle geliri artırın.</p>
+      <ul class="premium-samba-list">
+        <li data-i18n="home_samba_li_1">SambaPOS ile uyumlu operasyon akışı</li>
+        <li data-i18n="home_samba_li_2">WhatsApp ile sipariş ve kampanya bildirimleri</li>
+        <li data-i18n="home_samba_li_3">Müşteri CRM ve segmentasyon</li>
+        <li data-i18n="home_samba_li_4">Sadakat ve ödül programları</li>
+        <li data-i18n="home_samba_li_5">Marketplace entegrasyonları (Yemeksepeti, Getir ve benzeri)</li>
+      </ul>
+      <div class="premium-samba-cta">
+        <a href="sambapos-destek-kurulum.html" class="btn premium-btn-glow" data-i18n="home_samba_btn_support">SambaPOS destek ve kurulum</a>
+        <a data-whatsapp class="btn btn-secondary" data-i18n-wa-msg="home_wa_msg_samba" target="_blank" rel="noopener noreferrer" data-i18n="home_samba_btn_consult">Entegrasyon danışmanlığı</a>
+      </div>
+    </section>
+
+    <section class="premium-section" id="basari-hikayeleri">
+      <h2 class="premium-heading" data-i18n="cases_section_title">Gerçek restoranlar, gerçek sonuçlar</h2>
+      <p class="premium-lead" data-i18n="home_cases_subtitle">Türkiye genelinde işletmelerin deneyimlerinden örnekler.</p>
+      <div class="premium-cases-grid">
+        <article class="premium-case-card">
+          <div class="premium-case-card-visual">
+            <img src="images/illustrations/case-strip-1.svg" alt="" width="400" height="72" loading="lazy" decoding="async">
+          </div>
+          <h3 class="premium-case-title" data-i18n="home_case_1_title">İstanbul · Kahve zinciri</h3>
+          <div class="premium-case-stats">
+            <span><span data-i18n="home_case_before">Önce</span> <strong>₺85.000</strong><span data-i18n="home_case_month">/ay</span></span>
+            <span class="premium-case-arrow" aria-hidden="true">→</span>
+            <span><span data-i18n="home_case_after">Sonra</span> <strong>₺112.000</strong><span data-i18n="home_case_month">/ay</span></span>
+          </div>
+          <blockquote class="premium-case-quote" data-i18n="home_case_1_quote">Adisyon takibi ve WhatsApp kampanyaları ile üç ayda belirgin ciro artışı; personel hataları ciddi şekilde azaldı.</blockquote>
+        </article>
+        <article class="premium-case-card">
+          <div class="premium-case-card-visual">
+            <img src="images/illustrations/case-strip-2.svg" alt="" width="400" height="72" loading="lazy" decoding="async">
+          </div>
+          <h3 class="premium-case-title" data-i18n="home_case_2_title">Ankara · Aile restoranı</h3>
+          <div class="premium-case-stats">
+            <span><span data-i18n="home_case_before">Önce</span> <strong>₺45.000</strong><span data-i18n="home_case_month">/ay</span></span>
+            <span class="premium-case-arrow" aria-hidden="true">→</span>
+            <span><span data-i18n="home_case_after">Sonra</span> <strong>₺58.000</strong><span data-i18n="home_case_month">/ay</span></span>
+          </div>
+          <blockquote class="premium-case-quote" data-i18n="home_case_2_quote">Müşteri CRM ile tekrar gelen müşteri oranı arttı; sipariş karışıklığı belirgin şekilde düştü.</blockquote>
+        </article>
+        <article class="premium-case-card">
+          <div class="premium-case-card-visual">
+            <img src="images/illustrations/case-strip-3.svg" alt="" width="400" height="72" loading="lazy" decoding="async">
+          </div>
+          <h3 class="premium-case-title" data-i18n="home_case_3_title">İzmir · Fast food</h3>
+          <div class="premium-case-stats">
+            <span><span data-i18n="home_case_before">Önce</span> <strong>₺120.000</strong><span data-i18n="home_case_month">/ay</span></span>
+            <span class="premium-case-arrow" aria-hidden="true">→</span>
+            <span><span data-i18n="home_case_after">Sonra</span> <strong>₺148.000</strong><span data-i18n="home_case_month">/ay</span></span>
+          </div>
+          <blockquote class="premium-case-quote" data-i18n="home_case_3_quote">Marketplace entegrasyonu ve hızlı sipariş akışı ile online sipariş hacmi güçlü biçimde yükseldi.</blockquote>
+        </article>
+      </div>
+    </section>
+
+    <section class="premium-section" id="magaza-onizleme">
+      <h2 class="premium-heading" data-i18n="home_store_heading">POS ve donanım mağazası</h2>
+      <p class="premium-lead" data-i18n="home_store_lead">Dokunmatik ekranlar, yazarkasalar, barkod okuyucular ve tüm ekipman — mağazada stok ve fiyatlarla.</p>
+      <div class="premium-store-grid">
+        <a class="premium-store-card" href="urunler.html?cat=pos">
+          <div class="premium-store-card-art">
+            <img src="images/illustrations/store-pos.svg" alt="" width="320" height="140" loading="lazy" decoding="async">
+          </div>
+          <span class="premium-store-card-kicker" data-i18n="home_category_kicker">Kategori</span>
+          <strong class="premium-store-card-title" data-i18n="filter_pos">POS sistemleri</strong>
+          <span class="premium-store-card-desc" data-i18n="products_preview_pos_desc">15" ve 10" dokunmatik ekranlar</span>
+        </a>
+        <a class="premium-store-card" href="urunler.html?cat=yazarkasa">
+          <div class="premium-store-card-art">
+            <img src="images/illustrations/store-yazarkasa.svg" alt="" width="320" height="140" loading="lazy" decoding="async">
+          </div>
+          <span class="premium-store-card-kicker" data-i18n="home_category_kicker">Kategori</span>
+          <strong class="premium-store-card-title" data-i18n="filter_yazarkasa">Yazarkasalar</strong>
+          <span class="premium-store-card-desc" data-i18n="products_preview_yazarkasa_desc">Termal ve fiş yazıcılar</span>
+        </a>
+        <a class="premium-store-card" href="urunler.html?cat=donanim">
+          <div class="premium-store-card-art">
+            <img src="images/illustrations/store-donanim.svg" alt="" width="320" height="140" loading="lazy" decoding="async">
+          </div>
+          <span class="premium-store-card-kicker" data-i18n="home_category_kicker">Kategori</span>
+          <strong class="premium-store-card-title" data-i18n="filter_donanim">Donanım</strong>
+          <span class="premium-store-card-desc" data-i18n="products_preview_donanim_desc">Barkod okuyucu, çekmece ve aksesuar</span>
+        </a>
+      </div>
+      <p class="premium-store-all">
+        <a href="urunler.html" class="btn premium-btn-warm" data-i18n="home_store_see_all">Tüm ürünleri gör</a>
+      </p>
+    </section>
+
+    <section class="premium-section" id="paketler">
+      <h2 class="premium-heading" data-i18n="pricing_section_title">Yazılım paketleri</h2>
+      <p class="premium-lead premium-lead--tight" data-i18n="home_pricing_lead">Abonelik ödemesi güvenli ödeme sayfasından; özel ihtiyaç için AI asistan veya form ile iletişime geçin.</p>
+      <div class="premium-pricing" id="home-pricing-plans" aria-live="polite"></div>
+    </section>
+
+    <section class="premium-section premium-guarantee-block" id="garanti">
+      <h2 class="premium-heading" data-i18n="guarantee_shop">Güvenle alışveriş</h2>
+      <div class="premium-guarantee-grid">
+        <div class="premium-guarantee-item">
+          <div class="premium-guarantee-icon" aria-hidden="true">
+            <img src="images/illustrations/guar-refund.svg" alt="" width="48" height="48" loading="lazy" decoding="async">
+          </div>
+          <h3 class="premium-guarantee-title" data-i18n="guarantee_30">30 gün para iade</h3>
+          <p class="premium-guarantee-desc" data-i18n="guarantee_30_desc">Ürün koşullarına uygun şekilde memnun kalmazsanız iade süreci.</p>
+        </div>
+        <div class="premium-guarantee-item">
+          <div class="premium-guarantee-icon" aria-hidden="true">
+            <img src="images/illustrations/guar-tr.svg" alt="" width="48" height="48" loading="lazy" decoding="async">
+          </div>
+          <h3 class="premium-guarantee-title" data-i18n="guarantee_support_title">Türkçe destek</h3>
+          <p class="premium-guarantee-desc" data-i18n="guarantee_support_desc">Satış öncesi ve sonrası Türkçe iletişim; kurulum ve kullanım yardımı.</p>
+        </div>
+        <div class="premium-guarantee-item">
+          <div class="premium-guarantee-icon" aria-hidden="true">
+            <img src="images/illustrations/guar-fast.svg" alt="" width="48" height="48" loading="lazy" decoding="async">
+          </div>
+          <h3 class="premium-guarantee-title" data-i18n="guarantee_ship_title">Hızlı kargo</h3>
+          <p class="premium-guarantee-desc" data-i18n="guarantee_ship_desc">Türkiye geneline gönderim; sipariş takibi ile şeffaf süreç.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="ai-sales-assistant" class="premium-ai" aria-labelledby="ai-sales-heading">
+      <h2 id="ai-sales-heading" data-i18n="home_ai_title">AI Satış Asistanı</h2>
+      <p data-i18n="home_ai_intro">Gerçek zamanlı sohbet ile işletmenize uygun POS ve yazarkasa çözümünü netleştirin.</p>
+      <p class="premium-ai-chat-lead" data-i18n="home_ai_chat_lead">Aşağıdaki düğme veya sağ alttaki sohbet ile asistanı açın; birkaç soruda size özel yönlendirme alırsınız.</p>
+      <button type="button" class="btn btn-primary" id="dinamikpos-hero-cta-chat" data-i18n="home_ai_open_chat">Satış asistanını aç</button>
+    </section>
+
+    <section id="demo" class="premium-ai">
+      <h2 class="premium-heading" data-i18n="home_demo_heading">Demo ve teklif talebi</h2>
+      <p class="premium-ai-intro" data-i18n="home_demo_intro">İstediğiniz ürünleri, adetleri ve notlarınızı yazın; kurulum ve fiyat için ekibimiz size dönsün.</p>
+      <form id="demo-form" class="demo-form">
+        <div class="form-group"><label for="demo-name" data-i18n="demo_name">Ad Soyad</label><input id="demo-name" class="input" name="name" required></div>
+        <div class="form-group"><label for="demo-phone" data-i18n="demo_phone">Telefon</label><input id="demo-phone" class="input" name="phone" required></div>
+        <div class="form-group"><label for="demo-email" data-i18n="demo_email">E-posta</label><input id="demo-email" class="input" name="email" type="email" required></div>
+        <div class="form-group"><label for="demo-business" data-i18n="demo_business">İşletme Adı</label><input id="demo-business" class="input" name="business"></div>
+        <div class="form-group"><label for="demo-message" data-i18n="demo_message">Mesaj</label><textarea id="demo-message" class="input" name="message" rows="4"></textarea></div>
+        <button type="submit" class="btn btn-primary btn-block" data-i18n="home_demo_submit">Teklif Talebi Gönder</button>
+      </form>
+    </section>
+
+    <section class="premium-ai acil-destek-card">
+      <h2 class="premium-heading" data-i18n="acil_destek_title">SambaPOS Acil Destek</h2>
+      <form id="acil-destek-form" class="acil-destek-form">
+        <div class="form-group">
+          <label for="problem" data-i18n="acil_destek_problem_label">Sorununuzu yazın</label>
+          <textarea id="problem" class="input" name="problem" rows="4" required></textarea>
+        </div>
+        <div class="acil-destek-fields">
+          <div class="form-group"><label for="acil-name" data-i18n="acil_destek_name">Ad Soyad</label><input id="acil-name" class="input" name="name" required></div>
+          <div class="form-group"><label for="acil-phone" data-i18n="acil_destek_phone">Telefon</label><input id="acil-phone" class="input" name="phone" required></div>
+          <div class="form-group"><label for="acil-email" data-i18n="acil_destek_email">E-posta</label><input id="acil-email" class="input" name="email" type="email" required></div>
+        </div>
+        <button type="submit" class="btn btn-primary acil-destek-btn" data-i18n="acil_destek_submit">Gönder — En Kısa Sürede Dönüş Yapacağız</button>
+      </form>
+    </section>
+
+    <section class="premium-section">
+      <h2 class="premium-heading" data-i18n="home_service_heading">Hizmet Bazlı Sayfalar</h2>
+      <div class="premium-grid-4">
+        <a class="premium-chip" href="restoran-pos-sistemi.html" data-i18n="home_link_restaurant">Restoran POS Sistemi</a>
+        <a class="premium-chip" href="cafe-pos-sistemi.html" data-i18n="home_link_cafe">Cafe POS Sistemi</a>
+        <a class="premium-chip" href="adisyon-yonetimi.html" data-i18n="home_link_adisyon">Adisyon Yönetimi</a>
+        <a class="premium-chip" href="stok-ve-raporlama.html" data-i18n="home_link_stok">Stok ve Raporlama</a>
+      </div>
+      <div class="premium-grid-4 premium-grid-gap">
+        <a class="premium-chip" href="online-siparis-entegrasyonu.html" data-i18n="home_link_online">Online Sipariş Entegrasyonu</a>
+        <a class="premium-chip" href="yazarkasa-cozumleri.html" data-i18n="home_link_yazarkasa">Yazarkasa Çözümleri</a>
+        <a class="premium-chip" href="barkod-okuyucu-cozumleri.html" data-i18n="home_link_barkod">Barkod Okuyucu Çözümleri</a>
+        <a class="premium-chip" href="sambapos-destek-kurulum.html" data-i18n="home_link_samba">SambaPOS Destek ve Kurulum</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer premium-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <a href="index.html" class="footer-brand"><img src="images/logo.png" alt="Dinamik POS" class="footer-logo-img" width="180" height="45"></a>
+        <div id="footer-social" class="footer-social"></div>
+        <p class="footer-copy" data-i18n="footer_copy">© 2026 Dinamik POS. Tüm hakları saklıdır.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="sales-chat-widget" aria-live="polite">
+    <button type="button" class="launcher" id="chat-launcher">
+      <span class="launcher-ico" aria-hidden="true">◆</span>
+      <span id="chat-launcher-label">Sohbet</span>
+    </button>
+
+    <div class="panel" id="chat-panel" hidden>
+      <div class="sales-chat-widget-head">
+        <div>
+          <div id="chat-header-title">Satış Asistanı</div>
+          <span class="sub" id="chat-header-sub">POS · Yazarkasa · 7/24 Destek</span>
+        </div>
+        <button type="button" class="btn-icon" id="chat-close" aria-label="Kapat">×</button>
+      </div>
+
+      <div class="messages" id="chat-messages" role="log"></div>
+
+      <div class="loading-row" id="chat-loading" aria-hidden="true">
+        <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
+        <span id="chat-thinking-text">…</span>
+      </div>
+
+      <div class="lead-gate" id="lead-gate" hidden>
+        <p class="lead-gate-hint" id="lead-gate-hint"></p>
+        <button type="button" class="btn-lead-gate" id="lead-gate-btn"></button>
+      </div>
+
+      <form class="lead-strip" id="lead-form" autocomplete="on" hidden>
+        <div class="lead-strip-title" id="lead-strip-title">İletişim</div>
+        <div class="lead-fields">
+          <input type="text" id="lead-name" name="name" maxlength="500" />
+          <input type="tel" id="lead-phone" name="phone" maxlength="50" />
+          <input type="email" id="lead-email" name="email" maxlength="320" />
+        </div>
+        <button type="submit" class="btn-lead" id="lead-save">Kaydet</button>
+        <button type="button" class="btn-lead-gate" id="lead-hide-btn" style="margin-top: 8px"></button>
+      </form>
+
+      <form class="composer" id="chat-form">
+        <label for="chat-input" class="visually-hidden" id="chat-message-label">Mesaj</label>
+        <textarea id="chat-input" placeholder="" rows="1" autocomplete="off"></textarea>
+        <button type="submit" class="btn-send" id="chat-send">Gönder</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/config.js" defer></script>
+  <script src="js/translations.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/form-security.js" defer></script>
+  <script src="js/theme.js" defer></script>
+  <script src="js/nav-mobile.js" defer></script>
+  <script src="js/products.js" defer></script>
+  <script src="js/pricing-plans.js" defer></script>
+  <script src="js/hero-products-banner.js" defer></script>
+  <script src="js/calculator.js" defer></script>
+  <script src="js/demo-form.js" defer></script>
+  <script src="js/acil-destek-form.js" defer></script>
+  <script src="js/dinamik-chat-widget.js" defer></script>
+  <script>
+    (function () {
+      function applyHomeMeta() {
+        if (typeof I18N === 'undefined') return;
+        document.title = I18N.t('home_page_title');
+        var m = document.querySelector('meta[name="description"]');
+        if (m) m.setAttribute('content', I18N.t('home_meta_description'));
+      }
+      document.addEventListener('DOMContentLoaded', applyHomeMeta);
+      window.addEventListener('dinamik:langchange', applyHomeMeta);
+    })();
+  </script>
+</body>
+</html>

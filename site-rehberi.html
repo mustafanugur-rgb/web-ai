@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex,follow">
+  <title>Site rehberi | Dinamik POS Yönetim</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/theme-toggle.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('dinamik_theme') || 'light');</script>
+  <script>document.documentElement.setAttribute('lang', localStorage.getItem('dinamik_lang') || 'tr');</script>
+  <script src="js/admin-auth.js" defer></script>
+</head>
+<body class="admin-body">
+  <a href="#main-content" class="skip-link">İçeriğe atla</a>
+  <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-expanded="false" aria-label="Menüyü aç/kapat">
+    <span class="sidebar-toggle-bar"></span>
+    <span class="sidebar-toggle-bar"></span>
+    <span class="sidebar-toggle-bar"></span>
+  </button>
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Ana menü">
+    <div class="sidebar-header">
+      <a href="index.html" class="sidebar-logo"><img src="images/logo.png" alt="Dinamik POS" class="sidebar-logo-img" width="180" height="45" loading="lazy" decoding="async"></a>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="admin.html" class="sidebar-link">
+        <span class="sidebar-icon">📊</span>
+        Dashboard
+      </a>
+      <a href="site-rehberi.html" class="sidebar-link active" aria-current="page">
+        <span class="sidebar-icon">🗺️</span>
+        Site rehberi
+      </a>
+      <a href="raporlar.html" class="sidebar-link">
+        <span class="sidebar-icon">📈</span>
+        Raporlar
+      </a>
+      <a href="crm.html" class="sidebar-link">
+        <span class="sidebar-icon">👥</span>
+        CRM
+      </a>
+      <a href="urunler-yonetim.html" class="sidebar-link">
+        <span class="sidebar-icon">📦</span>
+        Ürünler
+      </a>
+      <a href="siparisler.html" class="sidebar-link">
+        <span class="sidebar-icon">📋</span>
+        Siparişler
+      </a>
+      <a href="kampanyalar.html" class="sidebar-link">
+        <span class="sidebar-icon">📢</span>
+        Kampanyalar
+      </a>
+      <a href="ayarlar.html" class="sidebar-link">
+        <span class="sidebar-icon">⚙️</span>
+        Ayarlar
+      </a>
+      <a href="ortaklar.html" class="sidebar-link">
+        <span class="sidebar-icon">🤝</span>
+        Çözüm Ortakları
+      </a>
+      <a href="kullanicilar.html" class="sidebar-link">
+        <span class="sidebar-icon">👤</span>
+        Kullanıcılar
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="theme-toggle sidebar-theme-toggle" role="group" aria-label="Tema seçimi">
+        <button type="button" data-theme-toggle="dark" aria-pressed="true" title="Koyu tema"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+        <button type="button" data-theme-toggle="light" aria-pressed="false" title="Açık tema"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
+      </div>
+      <a href="index.html" class="sidebar-link" data-i18n="admin_back">← Siteye Dön</a>
+      <button type="button" class="sidebar-link" id="admin-logout-btn" data-i18n="admin_logout" style="background:none;border:none;cursor:pointer;width:100%;text-align:left;font:inherit;color:inherit;">Çıkış</button>
+    </div>
+  </aside>
+
+  <div class="admin-main">
+    <header class="admin-header">
+      <h1 class="admin-title">Site rehberi</h1>
+      <div class="admin-header-actions">
+        <div id="lang-selector"></div>
+        <span class="admin-user"></span>
+      </div>
+    </header>
+
+    <main id="main-content" class="admin-content">
+      <section class="widget-section">
+        <div class="card">
+          <p class="stat-meta" style="margin-bottom: var(--space-4); max-width: 52rem;">
+            Bu sayfa, <strong>ziyaretçi tarafındaki tüm önemli sayfaları</strong> ve <strong>panelden veya projede nereden yönetildiğini</strong> özetler.
+            Metin ve HTML yapısı için ilgili dosyayı düzenlemeniz gerekir; <strong>SEO meta</strong> (özellikle varsayılan açıklama ve paylaşım görseli) <a href="ayarlar.html#bolum-seo">Ayarlar → SEO</a> üzerinden kaydedilip Node sunucusuyla çok sayıda sayfaya uygulanabilir.
+          </p>
+        </div>
+      </section>
+
+      <section class="widget-section">
+        <div class="card">
+          <h2 class="site-map-h2">Ayarlar — hızlı bağlantılar</h2>
+          <table class="site-map-table" aria-label="Ayarlar bölümleri">
+            <thead>
+              <tr><th>Bölüm</th><th>Açıklama</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><a href="ayarlar.html#bolum-genel">Genel</a></td><td>Firma, iletişim, WhatsApp, admin şifresi, sosyal medya</td></tr>
+              <tr><td><a href="ayarlar.html#bolum-gorseller">Site görselleri</a></td><td>Logo ve kapak yükleme (Node API)</td></tr>
+              <tr><td><a href="ayarlar.html#bolum-seo">SEO</a></td><td>Site adı, varsayılan açıklama, OG görseli, ana sayfa / ürünler başlıkları</td></tr>
+              <tr><td><a href="ayarlar.html#bolum-odeme">Ödeme</a></td><td>PayTR, havale</td></tr>
+              <tr><td><a href="ayarlar.html#bolum-efatura">E-fatura</a></td><td>Otomatik kesim seçenekleri</td></tr>
+              <tr><td><a href="ayarlar.html#bolum-magaza">Mağaza</a></td><td>KDV, para birimi</td></tr>
+              <tr><td><a href="ayarlar.html#bolum-ciro">Ciro</a></td><td>Hedefler ve rapor dönemi</td></tr>
+              <tr><td><a href="ayarlar.html#bolum-canli">Canlıya alma</a></td><td>Kontrol listesi</td></tr>
+              <tr><td><a href="ayarlar.html#bolum-veri">Veri yönetimi</a></td><td>Yedek, sıfırlama</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="widget-section">
+        <div class="card">
+          <h2 class="site-map-h2">Ana vitrin &amp; içerik</h2>
+          <table class="site-map-table">
+            <thead><tr><th>Sayfa</th><th>Dosya / not</th></tr></thead>
+            <tbody>
+              <tr><td><a href="index.html" target="_blank" rel="noopener">Ana sayfa</a></td><td><code>index.html</code> — hero, paketler, AI, formlar</td></tr>
+              <tr><td><a href="landing-premium.html" target="_blank" rel="noopener">Landing (premium)</a></td><td><code>landing-premium.html</code></td></tr>
+              <tr><td><a href="404.html" target="_blank" rel="noopener">404</a></td><td><code>404.html</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="widget-section">
+        <div class="card">
+          <h2 class="site-map-h2">Hizmet &amp; SEO sayfaları</h2>
+          <table class="site-map-table">
+            <thead><tr><th>Sayfa</th><th>Dosya</th></tr></thead>
+            <tbody>
+              <tr><td><a href="restoran-pos-sistemi.html" target="_blank" rel="noopener">Restoran POS</a></td><td><code>restoran-pos-sistemi.html</code></td></tr>
+              <tr><td><a href="cafe-pos-sistemi.html" target="_blank" rel="noopener">Cafe POS</a></td><td><code>cafe-pos-sistemi.html</code></td></tr>
+              <tr><td><a href="adisyon-yonetimi.html" target="_blank" rel="noopener">Adisyon</a></td><td><code>adisyon-yonetimi.html</code></td></tr>
+              <tr><td><a href="stok-ve-raporlama.html" target="_blank" rel="noopener">Stok &amp; raporlama</a></td><td><code>stok-ve-raporlama.html</code></td></tr>
+              <tr><td><a href="online-siparis-entegrasyonu.html" target="_blank" rel="noopener">Online sipariş</a></td><td><code>online-siparis-entegrasyonu.html</code></td></tr>
+              <tr><td><a href="yazarkasa-cozumleri.html" target="_blank" rel="noopener">Yazarkasa</a></td><td><code>yazarkasa-cozumleri.html</code></td></tr>
+              <tr><td><a href="barkod-okuyucu-cozumleri.html" target="_blank" rel="noopener">Barkod</a></td><td><code>barkod-okuyucu-cozumleri.html</code></td></tr>
+              <tr><td><a href="sambapos-destek-kurulum.html" target="_blank" rel="noopener">SambaPOS destek</a></td><td><code>sambapos-destek-kurulum.html</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="widget-section">
+        <div class="card">
+          <h2 class="site-map-h2">Mağaza, ödeme, hesap</h2>
+          <table class="site-map-table">
+            <thead><tr><th>Sayfa</th><th>Dosya / panel</th></tr></thead>
+            <tbody>
+              <tr><td><a href="urunler.html" target="_blank" rel="noopener">Ürün listesi</a></td><td><code>urunler.html</code> — ürün verisi: <strong>Ürünler</strong> yönetimi</td></tr>
+              <tr><td><a href="urun-detay.html" target="_blank" rel="noopener">Ürün detay</a></td><td><code>urun-detay.html</code></td></tr>
+              <tr><td><a href="sepet.html" target="_blank" rel="noopener">Sepet</a></td><td><code>sepet.html</code></td></tr>
+              <tr><td><a href="checkout.html" target="_blank" rel="noopener">Ödeme</a></td><td><code>checkout.html</code> — PayTR: <a href="ayarlar.html#bolum-odeme">Ayarlar → Ödeme</a></td></tr>
+              <tr><td><a href="odeme-basarili.html" target="_blank" rel="noopener">Ödeme başarılı</a></td><td><code>odeme-basarili.html</code></td></tr>
+              <tr><td><a href="odeme-basarisiz.html" target="_blank" rel="noopener">Ödeme başarısız</a></td><td><code>odeme-basarisiz.html</code></td></tr>
+              <tr><td><a href="giris.html" target="_blank" rel="noopener">Giriş</a></td><td><code>giris.html</code></td></tr>
+              <tr><td><a href="kayit.html" target="_blank" rel="noopener">Kayıt</a></td><td><code>kayit.html</code></td></tr>
+              <tr><td><a href="hesabim.html" target="_blank" rel="noopener">Hesabım</a></td><td><code>hesabim.html</code></td></tr>
+              <tr><td><a href="kampanyalar.html" target="_blank" rel="noopener">Kampanyalar (site)</a></td><td><code>kampanyalar.html</code> — aynı isimde panel sayfası da var</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="widget-section">
+        <div class="card">
+          <h2 class="site-map-h2">Yönetim paneli (bu arayüz)</h2>
+          <table class="site-map-table">
+            <thead><tr><th>Sayfa</th><th>Ne için</th></tr></thead>
+            <tbody>
+              <tr><td><a href="admin.html">Dashboard</a></td><td>Özet istatistikler</td></tr>
+              <tr><td><a href="raporlar.html">Raporlar</a></td><td>Ciro ve sipariş dökümü</td></tr>
+              <tr><td><a href="crm.html">CRM</a></td><td>Müşteri kayıtları</td></tr>
+              <tr><td><a href="urunler-yonetim.html">Ürünler</a></td><td>Katalog, fiyat, görseller</td></tr>
+              <tr><td><a href="siparisler.html">Siparişler</a></td><td>Sipariş listesi</td></tr>
+              <tr><td><a href="kampanyalar.html">Kampanyalar</a></td><td>Kampanya yönetimi</td></tr>
+              <tr><td><a href="ortaklar.html">Çözüm ortakları</a></td><td>Referans / logo</td></tr>
+              <tr><td><a href="kullanicilar.html">Kullanıcılar</a></td><td>Yetkiler</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/config.js" defer></script>
+  <script src="js/translations.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/theme.js" defer></script>
+  <script src="js/admin-sidebar.js" defer></script>
+  <script src="js/admin-notifications.js" defer></script>
+</body>
+</html>

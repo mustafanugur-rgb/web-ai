@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Dinamik POS - Güvenli ödeme (PayTR). Ürün veya yazılım paketi siparişi tamamlayın.">
+  <meta name="robots" content="noindex,follow">
+  <title>Ödeme | Dinamik POS E-ticaret</title>
+  <link rel="canonical" href="http://wwww.dinamikpos.com.tr.tr/checkout.html">
+  
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/theme-toggle.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/checkout.css">
+  <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('dinamik_theme')||'light');</script>
+  <script>document.documentElement.setAttribute('lang',localStorage.getItem('dinamik_lang')||'tr');</script>
+</head>
+<body class="checkout-body">
+  <a href="#main-content" class="skip-link" data-i18n="skip_link">İçeriğe atla</a>
+
+  <header class="header checkout-header" role="banner">
+    <nav class="nav" aria-label="Ana menü">
+      <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Dinamik POS" class="nav-logo-img" width="180" height="45" loading="lazy" decoding="async"></a>
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Menüyü aç/kapat">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <div class="nav-cta">
+          <div id="lang-selector"></div>
+          <div class="theme-toggle" role="group" aria-label="Tema seçimi">
+            <button type="button" data-theme-toggle="dark" aria-pressed="true" title="Koyu tema"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+            <button type="button" data-theme-toggle="light" aria-pressed="false" title="Açık tema"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
+          </div>
+          <a href="index.html" id="back-link" class="btn btn-secondary btn-sm" data-i18n="back">← Geri</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="checkout-main">
+    <div class="checkout-inner">
+      <!-- Sipariş Özeti -->
+      <aside class="checkout-summary card">
+        <h2 data-i18n="order_summary">Sipariş Özeti</h2>
+        <div id="summary-plan-type">
+          <div class="summary-plan" id="summary-plan">
+            <span class="summary-name">Growth</span>
+            <span class="summary-price">₺899/ay</span>
+          </div>
+          <ul class="summary-features" id="summary-features">
+            <li>POS + CRM + WhatsApp</li>
+            <li>5 kasa / 10 kullanıcı</li>
+            <li>7/24 destek</li>
+          </ul>
+        </div>
+        <div id="summary-cart-type" style="display:none;">
+          <ul class="summary-cart-items" id="summary-cart-items"></ul>
+        </div>
+        <div class="summary-total">
+          <span data-i18n="amount_due">Ödenecek tutar</span>
+          <span id="summary-total">₺899</span>
+        </div>
+        <p class="summary-note" data-i18n="paytr_note">Ödeme PayTR güvencesiyle işlenir.</p>
+      </aside>
+
+      <!-- Form veya PayTR iframe -->
+      <div class="checkout-form-wrapper">
+        <div id="checkout-step-form">
+          <h1 data-i18n="checkout_title">Ödeme Bilgileri</h1>
+          <form class="checkout-form card" id="checkout-form">
+            <input type="hidden" name="plan" id="plan-input" value="growth">
+            
+            <div class="form-section">
+              <h3 data-i18n="contact_info">İletişim Bilgileri</h3>
+              <div class="form-group">
+                <label for="checkout-name">Ad Soyad *</label>
+                <input type="text" id="checkout-name" name="name" class="input" required autocomplete="name">
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="checkout-email">E-posta *</label>
+                  <input type="email" id="checkout-email" name="email" class="input" required autocomplete="email">
+                </div>
+                <div class="form-group">
+                  <label for="checkout-phone">Telefon *</label>
+                  <input type="tel" id="checkout-phone" name="phone" class="input" required placeholder="05XX XXX XX XX" autocomplete="tel">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="checkout-business">İşletme Adı</label>
+                <input type="text" id="checkout-business" name="business" class="input" placeholder="Restoran/Kafe adınız" autocomplete="organization">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit-btn">
+              ₺899 ile Ödemeye Geç
+            </button>
+          </form>
+        </div>
+
+        <!-- PayTR iframe burada gösterilir -->
+        <div id="checkout-step-paytr" class="paytr-container" style="display:none;">
+          <h1>Güvenli Ödeme</h1>
+          <p class="paytr-desc">Ödemenizi güvenle tamamlamak için kart bilgilerinizi aşağıdaki PayTR formuna girin.</p>
+          <div id="paytr-iframe-wrapper"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Ödeme API adresi: yerelde Node çalışırken localhost; canlıda boş bırakın (getDinamikApiBase kök veya alt klasörü hesaplar)
+    if (window.location.protocol === 'file:') {
+      window.API_BASE = 'http://localhost:3001';
+    } else {
+      window.API_BASE = '';
+    }
+  </script>
+  <script src="js/config.js" defer></script>
+  <script src="js/translations.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/theme.js" defer></script>
+  <script src="js/nav-mobile.js" defer></script>
+  <script src="js/pricing-plans.js" defer></script>
+  <script src="https://www.paytr.com/js/iframeResizer.min.js?v2" defer></script>
+  <script src="js/checkout.js" defer></script>
+</body>
+</html>

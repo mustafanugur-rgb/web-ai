@@ -1,0 +1,10 @@
+node_modules/
+server/data/
+.env
+*.log
+
+# Python satış asistanı (sales-agent-api)
+sales-agent-api/.venv/
+sales-agent-api/**/__pycache__/
+sales-agent-api/.env
+sales-agent-api/leads.json

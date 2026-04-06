@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex,follow">
+  <title>Üye Ol | Dinamik POS E-ticaret</title>
+  <link rel="canonical" href="http://wwww.dinamikpos.com.tr.tr/kayit.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('dinamik_theme')||'light');</script>
+  <script>document.documentElement.setAttribute('lang',localStorage.getItem('dinamik_lang')||'tr');</script>
+  <style>
+    .register-page { min-height: 100vh; min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding: max(2rem, env(safe-area-inset-top, 0px)) max(2rem, env(safe-area-inset-right, 0px)) max(2rem, env(safe-area-inset-bottom, 0px)) max(2rem, env(safe-area-inset-left, 0px)); }
+    .register-card { max-width: 420px; width: 100%; }
+    .register-logo { text-align: center; margin-bottom: var(--space-6); }
+    .register-logo img { height: 48px; }
+    .register-error { color: var(--color-error); font-size: var(--text-sm); margin-top: var(--space-2); display: none; }
+    .register-success { color: var(--color-success, #0ea5e9); font-size: var(--text-sm); margin-top: var(--space-2); display: none; }
+    .register-hint { text-align: center; margin-top: var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted); }
+    .register-lang { position: absolute; top: max(var(--space-4), env(safe-area-inset-top, 0px)); right: max(var(--space-4), env(safe-area-inset-right, 0px)); }
+  </style>
+</head>
+<body>
+  <div class="register-lang" id="lang-selector"></div>
+  <div class="register-page">
+    <div class="register-card card">
+      <div class="register-logo">
+        <a href="index.html"><img src="images/logo.png" alt="Dinamik POS" width="180" height="45" loading="lazy" decoding="async"></a>
+      </div>
+      <h1 style="text-align:center; margin-bottom: var(--space-2);" data-i18n="register_title">Üye Ol</h1>
+      <p style="text-align:center; color: var(--color-text-secondary); font-size: var(--text-sm); margin-bottom: var(--space-6);" data-i18n="register_subtitle">Hesap oluşturun, siparişlerinizi takip edin.</p>
+      <form id="customer-register-form">
+        <div class="form-group">
+          <label for="reg-name" data-i18n="register_name">Ad Soyad *</label>
+          <input type="text" id="reg-name" class="input" data-i18n-placeholder="register_name_placeholder" placeholder="Adınız Soyadınız" required autocomplete="name" minlength="2">
+        </div>
+        <div class="form-group">
+          <label for="reg-email" data-i18n="register_email">E-posta *</label>
+          <input type="email" id="reg-email" class="input" data-i18n-placeholder="register_email_placeholder" placeholder="ornek@email.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="reg-phone" data-i18n="register_phone">Telefon</label>
+          <input type="tel" id="reg-phone" class="input" data-i18n-placeholder="register_phone_placeholder" placeholder="05XX XXX XX XX" autocomplete="tel">
+        </div>
+        <div class="form-group">
+          <label for="reg-password" data-i18n="register_password">Şifre *</label>
+          <input type="password" id="reg-password" class="input" data-i18n-placeholder="register_password_placeholder" placeholder="En az 6 karakter" required autocomplete="new-password" minlength="6">
+        </div>
+        <div class="form-group">
+          <label for="reg-password2" data-i18n="register_password2">Şifre Tekrar *</label>
+          <input type="password" id="reg-password2" class="input" data-i18n-placeholder="register_password2_placeholder" placeholder="Şifrenizi tekrar girin" required autocomplete="new-password">
+        </div>
+        <p class="register-error" id="register-error"></p>
+        <p class="register-success" id="register-success" data-i18n="register_success_msg">Kayıt başarılı! Yönlendiriliyorsunuz...</p>
+        <button type="submit" class="btn btn-primary btn-block" id="register-btn" data-i18n="register_btn">Üye Ol</button>
+      </form>
+      <p class="register-hint">
+        <span data-i18n="register_hint_login">Zaten üye misiniz?</span> <a href="giris.html" data-i18n="register_login_link">Giriş yapın</a>
+        <br>
+        <a href="index.html" data-i18n="register_back_shop">← Alışverişe Dön</a>
+      </p>
+    </div>
+  </div>
+  <script src="js/config.js" defer></script>
+  <script src="js/translations.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/musteri-kayit.js" defer></script>
+  <script>
+    (function(){
+      var container = document.getElementById('lang-selector');
+      if (container && typeof I18N !== 'undefined' && I18N.renderLangSelector) I18N.renderLangSelector(container);
+    })();
+  </script>
+</body>
+</html>

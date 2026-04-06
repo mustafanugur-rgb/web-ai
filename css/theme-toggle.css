@@ -1,0 +1,56 @@
+/**
+ * Tema değiştirici butonu
+ */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+.theme-toggle [data-theme-toggle] {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  color: var(--color-text-muted);
+  transition: all var(--transition-fast);
+}
+
+.theme-toggle [data-theme-toggle]:hover {
+  color: var(--color-text-primary);
+  background: var(--color-bg-hover);
+}
+
+.theme-toggle [data-theme-toggle].active {
+  background: var(--color-accent-muted);
+  color: var(--color-accent);
+}
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+.sidebar-theme-toggle {
+  margin-bottom: var(--space-3);
+  justify-content: center;
+}
+
+@media (max-width: 1024px) {
+  .theme-toggle [data-theme-toggle] {
+    width: var(--touch-target-min, 44px);
+    height: var(--touch-target-min, 44px);
+    min-width: var(--touch-target-min, 44px);
+    min-height: var(--touch-target-min, 44px);
+  }
+  .theme-toggle svg {
+    width: 20px;
+    height: 20px;
+  }
+}

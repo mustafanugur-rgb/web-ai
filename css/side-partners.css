@@ -1,0 +1,116 @@
+/**
+ * Sol: Çözüm Ortakları | Sağ: Referanslarımız
+ * Mağaza satılıyor gibi otomatik kayan (marquee), scroll değil.
+ */
+
+.side-strip {
+  display: none;
+  position: fixed;
+  top: var(--header-bar-height); /* 480px altında index/nav ile hizalı */
+  left: 0;
+  right: auto;
+  bottom: 0;
+  width: 160px;
+  height: calc(100dvh - var(--header-bar-height));
+  padding: 0;
+  overflow: hidden;
+  z-index: 5;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  box-sizing: border-box;
+}
+
+/* Kayan alan — overflow hidden, içerik yukarı kayar */
+.side-strip-marquee {
+  height: 100%;
+  overflow: hidden;
+  padding: var(--space-4);
+  box-sizing: border-box;
+}
+.side-strip-marquee-inner {
+  animation: side-strip-flow 25s linear infinite;
+}
+.side-strip-marquee:hover .side-strip-marquee-inner {
+  animation-play-state: paused;
+}
+@keyframes side-strip-flow {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+.side-strip-left {
+  left: 0;
+  border-right: 1px solid var(--color-border);
+}
+.side-strip-right {
+  left: auto;
+  right: 0;
+  border-left: 1px solid var(--color-border);
+}
+
+.side-strip-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.side-strip-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.side-strip-item {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  transition: border-color 0.2s, background 0.2s;
+}
+.side-strip-item:hover {
+  border-color: var(--color-accent);
+  background: var(--color-bg-elevated);
+  color: var(--color-text-primary);
+}
+
+.side-strip-item img,
+.side-strip .side-partners-item img {
+  width: 100%;
+  height: 40px;
+  object-fit: contain;
+  display: block;
+  margin-bottom: var(--space-1);
+}
+.side-strip-item span,
+.side-strip .side-partners-item-name {
+  display: block;
+  text-align: center;
+  line-height: 1.2;
+  word-break: break-word;
+  font-size: 0.75rem;
+}
+
+/* JS aynı class isimleriyle dolduruyor — liste yukarıdan aşağı kayar */
+.side-strip .side-partners-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted); margin-bottom: var(--space-3); padding-bottom: var(--space-2); border-bottom: 1px solid var(--color-border); flex-shrink: 0; }
+.side-strip .side-partners-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-3); min-height: min-content; }
+.side-strip .side-partners-item { display: block; padding: var(--space-2) var(--space-3); background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-md); text-decoration: none; color: var(--color-text-secondary); transition: border-color 0.2s, background 0.2s; flex-shrink: 0; }
+.side-strip .side-partners-item:hover { border-color: var(--color-accent); background: var(--color-bg-elevated); color: var(--color-text-primary); }
+.side-strip .side-partners-empty { color: var(--color-text-muted); font-size: 0.75rem; padding: var(--space-2); list-style: none; }
+
+/* Sadece ekran genişse göster (içerik 1280px + şeritler 160*2 = 1600) */
+@media (min-width: 1600px) {
+  .side-strip {
+    display: block;
+  }
+}

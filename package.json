@@ -1,0 +1,23 @@
+{
+  "name": "dinamik-pos-website",
+  "version": "1.0.0",
+  "description": "Dinamik POS - Cafe ve restoranlara yazılım ve ekipman satan e-ticaret sitesi (PayTR ödeme)",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node server/index.js",
+    "sales-agent": "node scripts/run-sales-agent.js",
+    "start:all": "concurrently -n site,agent -c cyan,magenta \"node server/index.js\" \"node scripts/run-sales-agent.js\"",
+    "set-domain": "node scripts/set-canonical.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^8.0.2",
+    "sharp": "^0.33.2"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

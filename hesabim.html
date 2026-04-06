@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex,follow">
+  <title>Hesabım | Dinamik POS E-ticaret</title>
+  <link rel="canonical" href="http://wwww.dinamikpos.com.tr.tr/hesabim.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('dinamik_theme')||'light');</script>
+  <script>document.documentElement.setAttribute('lang',localStorage.getItem('dinamik_lang')||'tr');</script>
+  <style>
+    .account-main { max-width: 720px; margin: 0 auto; padding: calc(var(--space-8) + var(--nav-mobile-offset)) max(var(--space-4), env(safe-area-inset-right, 0px)) var(--space-8) max(var(--space-4), env(safe-area-inset-left, 0px)); padding-bottom: max(var(--space-8), env(safe-area-inset-bottom, 0px)); }
+    .account-welcome { margin-bottom: var(--space-8); }
+    .account-section { margin-bottom: var(--space-8); }
+    .account-section h2 { font-size: 1.25rem; margin-bottom: var(--space-4); }
+    .order-list-empty { padding: var(--space-8); text-align: center; color: var(--color-text-secondary); background: var(--color-bg-secondary); border-radius: var(--radius-md); }
+  </style>
+</head>
+<body>
+  <header class="header" role="banner">
+    <nav class="nav" aria-label="Ana menü">
+      <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Dinamik POS" class="nav-logo-img" width="180" height="45" loading="lazy" decoding="async"></a>
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu" data-i18n-aria-label="menu_toggle">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <ul class="nav-links">
+          <li><a href="index.html" data-i18n="nav_home">Ana Sayfa</a></li>
+          <li><a href="urunler.html" data-i18n="nav_products">Ürünler</a></li>
+          <li><a href="hesabim.html" class="active" data-i18n="account_title">Hesabım</a></li>
+        </ul>
+        <div class="nav-cta">
+          <a href="sepet.html" data-i18n="nav_cart">Sepet</a>
+          <button type="button" class="btn btn-secondary" id="hesabim-cikis" data-i18n="account_logout">Çıkış</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="account-main">
+    <div class="account-welcome">
+      <h1 data-i18n="account_title">Hesabım</h1>
+      <p id="hesabim-merhaba"><span data-i18n="account_welcome">Hoş geldiniz</span>, <strong id="hesabim-adi">—</strong></p>
+    </div>
+
+    <section class="account-section">
+      <h2 data-i18n="account_orders">Siparişlerim</h2>
+      <div class="order-list-empty" id="siparislerim-alan">
+        <span data-i18n="account_empty_orders">Henüz siparişiniz bulunmuyor.</span> <a href="urunler.html" data-i18n="account_start_shopping">Alışverişe başlayın</a>.
+      </div>
+    </section>
+  </main>
+
+  <script src="js/config.js" defer></script>
+  <script src="js/translations.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/musteri-auth.js" defer></script>
+  <script src="js/nav-mobile.js" defer></script>
+  <script>
+    (function() {
+      var user = typeof AdminAuth !== 'undefined' && AdminAuth.getCurrentUser && AdminAuth.getCurrentUser();
+      var adiEl = document.getElementById('hesabim-adi');
+      if (adiEl) adiEl.textContent = user && user.name ? user.name : (user && user.email ? user.email : 'Misafir');
+      document.getElementById('hesabim-cikis')?.addEventListener('click', function() {
+        if (typeof AdminAuth !== 'undefined' && AdminAuth.logout) AdminAuth.logout();
+        window.location.href = 'giris.html';
+      });
+    })();
+  </script>
+</body>
+</html>

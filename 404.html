@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex,follow">
+  <title>Sayfa Bulunamadı | Dinamik POS E-ticaret</title>
+  <link rel="canonical" href="http://wwww.dinamikpos.com.tr.tr/404.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('dinamik_theme')||'light');</script>
+  <script>document.documentElement.setAttribute('lang',localStorage.getItem('dinamik_lang')||'tr');</script>
+  <style>
+    .error-page { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; text-align: center; }
+    .error-code { font-size: 6rem; font-weight: 800; color: var(--color-accent); line-height: 1; margin-bottom: var(--space-4); }
+    .error-title { font-size: 1.5rem; margin-bottom: var(--space-2); }
+    .error-desc { color: var(--color-text-secondary); margin-bottom: var(--space-8); max-width: 400px; }
+    .error-lang { position: absolute; top: var(--space-4); right: var(--space-4); }
+  </style>
+</head>
+<body>
+  <div class="error-lang" id="lang-selector"></div>
+  <div class="error-page">
+    <div class="error-code">404</div>
+    <h1 class="error-title" data-i18n="page_404_title">Sayfa Bulunamadı</h1>
+    <p class="error-desc" data-i18n="page_404_desc">Aradığınız sayfa mevcut değil veya taşınmış olabilir.</p>
+    <div style="display:flex; gap: var(--space-4); flex-wrap: wrap; justify-content: center;">
+      <a href="index.html" class="btn btn-primary" data-i18n="page_404_home">Ana Sayfaya Dön</a>
+      <a href="urunler.html" class="btn btn-secondary" data-i18n="page_404_products">Ürünlere Göz At</a>
+    </div>
+  </div>
+  <script src="js/config.js" defer></script>
+  <script src="js/translations.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script>
+    (function(){
+      var container = document.getElementById('lang-selector');
+      if (container && typeof I18N !== 'undefined' && I18N.renderLangSelector) I18N.renderLangSelector(container);
+    })();
+  </script>
+</body>
+</html>
